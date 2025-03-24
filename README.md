@@ -118,3 +118,34 @@ Uložiť a načítať (DUMP/LOAD)
 - Data môžeme exportovať z databáze `python manage.py dumpdata viewer --output fixtures.json`
 - Data môžeme importovať do databázy `python manage.py loaddata fixtures.json`
 
+07.03
+
+#### Queries - dotazy
+- Django ORM poskytuje API pre prácu s databázou
+- Základné operácie: `objects.all()`, `objects.get()`, `objects.filter()`, `objects.exclude()`
+  - `Movie.objects.filter(genres__name="Drama")`
+  - `Movie.objects.filter(genres__name="Drama", released_date__year=1999)` 
+- Porovnávacie operátory: `__exact`, `__contains`, `__startswith`, `__gt`, `__lt`, atď.
+- Reťazenie dotazov (chaining): `Movie.objects.filter(rok__gt=2000).exclude(zanre__nazov="Horor")`
+- Agregačné funkcie: `Count`, `Avg`, `Sum`, `Min`, `Max`
+- Taktiež môžeme vytvoriť, editovať a vymazať z databazy
+  - `Genre.objects.create(name='Dokument')`
+  - `Movie.objects.filter(released_date__year=1994).update(length=123)`
+  - `Genre.objects.get(name="Dokument").delete()`
+
+#### Templates - šablóny
+- Šablóny definujú vzhľad stránok v Django aplikácii
+- Umiestnené v adresároch `templates` v aplikáciách
+- Šablónový jazyk Django Template Language (DTL)
+- Základné konštrukcie: premenné `{{ premenna }}`, bloky `{% block content %}`, podmienky `{% if %}`, cykly `{% for %}`
+- Filtre pre formátovanie hodnôt: `{{ nazov|upper }}`, `{{ datum|date:"d.m.Y" }}`
+- Dedičnosť šablón pomocou `{% extends "base.html" %}` a `{% block %}
+
+
+
+
+
+
+
+
+

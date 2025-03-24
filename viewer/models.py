@@ -43,6 +43,7 @@ class Creator(Model):
 
     class Meta:
         ordering = ['surname', 'name', 'date_of_birth']
+        verbose_name_plural = "Tvorcovia"
 
     def __repr__(self):
         return f"Creator(name={self.name}, surname={self.surname}, date_of_birth={self.date_of_birth})"
@@ -54,8 +55,8 @@ class Creator(Model):
 
 
 class Movie(Model):
-    title_orig = CharField(max_length=64, null=False, blank=False)
-    title_cz = CharField(max_length=64, null=True, blank=True)
+    title = CharField(max_length=64, null=False, blank=False)
+    title_en = CharField(max_length=64, null=True, blank=True)
     genres = ManyToManyField(Genre, blank=True, related_name='movies')
     countries = ManyToManyField(Country, blank=True, related_name='movies')
     length = IntegerField(null=True, blank=True)
@@ -67,10 +68,11 @@ class Movie(Model):
     updated = DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ['title_orig', 'released_date']
+        ordering = ['title', 'released_date']
+        verbose_name_plural = "Filmy"
 
     def __repr__(self):
-        return f"Movie(title_orig={self.title_orig}, released_year={self.released_date.year})"
+        return f"Movie(title_orig={self.title}, released_year={self.released_date.year})"
 
     def __str__(self):
-        return f"{self.title_orig} ({self.released_date.year})"
+        return f"{self.title} ({self.released_date.year})"
