@@ -61,6 +61,8 @@
 
 ### Základy Djanga
 
+05.03
+
 #### Vytvorenie projektu
 - Django projekt sa vytvára príkazom `django-admin startproject názov_projektu`
 - Vytvorí sa základná adresárová štruktúra s konfiguračnými súbormi
@@ -82,6 +84,30 @@
 - Každá aplikácia je samostatný balík s vlastnou funkcionalitou
 - Aplikáciu treba registrovať v `INSTALLED_APPS` v súbore `settings.py`
 - Aplikácia obsahuje súbory ako `models.py`, `views.py`, `urls.py`, `admin.py`, `apps.py` a adresár `templates`
+
+06.03
+
+#### ORM modely
+- Model predstavuje tabuľku v databáze a definuje sa v `models.py`
+- Každý model je Python trieda, ktorá dedí od `django.db.models.Model`
+- Polia modelov definujú stĺpce v databáze (CharField, IntegerField, DateField, atď.)
+- Relácie medzi modelmi sa definujú pomocou ForeignKey, ManyToManyField, OneToOneField
+- Modely môžu obsahovať metadáta, metódy a vlastnosti
+
+#### Migrácie
+- Migrácie slúžia na správu zmien v schéme databázy
+- Vytvorenie migrácie: `python manage.py makemigrations`
+- Aplikovanie migrácie: `python manage.py migrate`
+- Migrácie umožňujú viesť históriu zmien v databáze
+- Pomocou migrácie môžeme pridávať, meniť alebo mazať tabuľky a stĺpce
+- Migrácie sa dajú vrátiť späť pomocou `python manage.py migrate app_name 0001`
+
+#### Admin panel
+- Django poskytuje automaticky generovaný admin panel
+- Vytvorenie super užívateľa `python manage.py createsuperuser`
+- Zaregistrovať modely do `admin.py` v aplikácií
+- Registrácia modelov v `admin.py` pre zobrazenie v admin paneli
+
 
 
 
