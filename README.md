@@ -108,7 +108,13 @@
 - Zaregistrovať modely do `admin.py` v aplikácií
 - Registrácia modelov v `admin.py` pre zobrazenie v admin paneli
 
+#### Shell
+- Interaktívny Python shell s načítaným Django projektom: `python manage.py shell`
+- Možnosť manipulácie s dátami bez webového rozhrania
+- Testovanie ORM dotazov a operácií s modelmi
+- Import modelov a práca s nimi priamo v shelli
 
-
-
+Uložiť a načítať (DUMP/LOAD)
+- Data môžeme exportovať z databáze `python manage.py dumpdata viewer --output fixtures.json`
+- Data môžeme importovať do databázy `python manage.py loaddata fixtures.json`
 
