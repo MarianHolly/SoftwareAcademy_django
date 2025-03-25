@@ -148,7 +148,13 @@ Uložiť a načítať (DUMP/LOAD)
 - Lepšie možnosti rozšírenia a prispôsobenia
 - Jednoduchšia práca s formulármi a CRUD operáciami
 
-
+#### Formuláre
+- Vytvorenie formulárov pre manipuláciu s dátami
+- Použitie `ModelForm` pre automatické generovanie formulárov z modelov
+- Validácia vstupných dát
+- Spracovanie formulárov v zobrazeniach
+- Prispôsobenie vzhľadu formulárov pomocou CSS a widgetov
+- Implementácia vlastných validačných metód
 
 
 
