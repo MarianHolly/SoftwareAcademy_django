@@ -44,3 +44,9 @@ class CreatorListView(ListView):
     template_name = 'creators.html'
     model = Creator
     context_object_name = 'creators'
+
+
+class CreatorDetailsView(DetailView):
+    template_name = 'creator.html'
+    model = Creator
+    context_object_name = 'creator'
