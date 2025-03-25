@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Formulár
+{% endblock %}
+
+{% block content %}
+    <form method="post">
+        <!-- CSRF token je určitý spôsob ochrany -->
+        {% csrf_token %}
+        <!-- Pomocou 'table' vygenerujeme labels a inputs -->
+        <table>{{ form.as_table }}</table>
+        <input type="submit" id="id_submit" value="Ulozit" class="btn btn-primary">
+    </form>
+{% endblock %}
