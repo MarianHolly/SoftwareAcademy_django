@@ -6,7 +6,7 @@ from viewer.models import Country, Genre, Creator, Movie
 
 # Prvý prístup
 # Základný formulár (nie modelový), ktorý musí manuálne definovať všetky polia
-class MovieFormFirst(Form):
+class MovieForm(Form):
     title = CharField(max_length=64, required=True)
     title_en = CharField(max_length=64, required=False)
     genres = ModelChoiceField(queryset=Genre.objects.all(), required=False)
@@ -17,7 +17,7 @@ class MovieFormFirst(Form):
     description = CharField(widget=Textarea, required=False)
     released_date = DateField(required=False)
 
-class MovieForm(ModelForm):
+class MovieModelForm(ModelForm):
 
     class Meta:
         """ Meta trieda definuje metadáta formulára

@@ -1,9 +1,10 @@
 from django.shortcuts import render
+from django.urls import reverse_lazy
 
 from django.views import View
-from django.views.generic import TemplateView, ListView, DetailView, FormView
+from django.views.generic import TemplateView, ListView, DetailView, FormView, UpdateView, CreateView
 
-from viewer.forms import MovieForm
+from viewer.forms import MovieForm, MovieModelForm
 from viewer.models import Creator, Movie
 
 
@@ -11,16 +12,18 @@ from viewer.models import Creator, Movie
 def home(request):
     return render(request, 'home.html')
 
+
+#todo: ======================== MOVIES ========================
+
+
 # Rôzne spôsoby ako vytvoriť views
 
 """def movies(request):
     return render(request, 'movies.html', {'movies': Movie.objects.all()})"""
 
-
 """class MoviesView(View):
     def get(self, request):
         return render(request, 'movies.html', {'movies': Movie.objects.all()})"""
-
 
 """class MoviesTemplateView(TemplateView):
     template_name = 'movies.html'
@@ -41,7 +44,10 @@ class MovieDetailsView(DetailView):
     context_object_name = 'movie'
 
 
-class MovieCreateView(FormView):
+#todo: ======================== FORM - CREATE, EDIT, DELETE ========================
+
+
+"""class MovieCreateView(FormView):
     template_name = 'form.html'
     form_class = MovieForm
 
@@ -56,10 +62,31 @@ class MovieCreateView(FormView):
         return result
 
     def form_invalid(self, form):
+        print("Formulár nie je validný.")"""
+
+
+class MovieCreateView(CreateView):
+    template_name = 'form.html'
+    form_class = MovieModelForm
+    success_url = reverse_lazy('movies')
+
+    def form_invalid(self, form):
         print("Formulár nie je validný.")
+        return super().form_invalid(form)
 
 
+class MovieUpdateView(UpdateView):
+    template_name = 'form.html'
+    form_class = MovieModelForm
+    model = Movie
+    success_url = reverse_lazy('movies')
 
+    def form_invalid(self, form):
+        print("Formulár nie je validný.")
+        return super().form_invalid(form)
+
+
+#todo: ======================== CREATORS ========================
 
 
 class CreatorListView(ListView):
