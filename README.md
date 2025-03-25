@@ -141,7 +141,12 @@ Uložiť a načítať (DUMP/LOAD)
 - Filtre pre formátovanie hodnôt: `{{ nazov|upper }}`, `{{ datum|date:"d.m.Y" }}`
 - Dedičnosť šablón pomocou `{% extends "base.html" %}` a `{% block %}
 
-
+#### Class-based views
+- Zobrazenia implementované ako triedy namiesto funkcií
+- Dedenie z tried ako `ListView`, `DetailView`, `CreateView`, `UpdateView`, `DeleteView`
+- Jednoduchšie zdieľanie kódu medzi zobrazeniami
+- Lepšie možnosti rozšírenia a prispôsobenia
+- Jednoduchšia práca s formulármi a CRUD operáciami
 
 
 
