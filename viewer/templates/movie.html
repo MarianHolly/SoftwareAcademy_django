@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block title %}{{ movie.title }}{% endblock %}
+
+{% block content %}
+<div class="container movie-details my-5">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <h1 class="display-4 mb-4">{{ movie.title }}</h1>
+
+            {% if movie.title_en %}
+            <h2 class="h4 text-muted mb-4">{{ movie.title_en }}</h2>
+            {% endif %}
+
+            <div class="movie-metadata mb-4">
+                <div class="row">
+                    <div class="col-md-6">
+                        {% if movie.genres.all %}
+                        <p>
+                            <strong>Žánre:</strong>
+                            {% for genre in movie.genres.all %}
+                                <span class="badge badge-secondary mr-1">{{ genre }}</span>
+                            {% endfor %}
+                        </p>
+                        {% endif %}
+
+                        {% if movie.countries.all %}
+                        <p>
+                            <strong>Krajiny:</strong>
+                            {% for country in movie.countries.all %}
+                                <span class="badge badge-info mr-1">{{ country }}</span>
+                            {% endfor %}
+                        </p>
+                        {% endif %}
+
+                        {% if movie.length %}
+                        <p><strong>Dĺžka:</strong> {{ movie.length }} minút</p>
+                        {% endif %}
+
+                        {% if movie.released_date %}
+                        <p><strong>Dátum premiery:</strong> {{ movie.released_date|date:"F d, Y" }}</p>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-md-6">
+                        {% if movie.directors.all %}
+                        <p>
+                            <strong>Režia:</strong>
+                            {% for director in movie.directors.all %}
+                                <span>{{ director }}{% if not forloop.last %}, {% endif %}</span>
+                            {% endfor %}
+                        </p>
+                        {% endif %}
+
+                        {% if movie.actors.all %}
+                        <p>
+                            <strong>Herci:</strong>
+                            {% for actor in movie.actors.all|slice:":5" %}
+                                <span>{{ actor }}{% if not forloop.last %}, {% endif %}</span>
+                            {% endfor %}
+                            {% if movie.actors.all|length > 5 %}
+                                <small class="text-muted ml-2">(a {{ movie.actors.all|length|add:"-5" }} ďalší)</small>
+                            {% endif %}
+                        </p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            {% if movie.description %}
+            <div class="movie-description mb-4">
+                <h3>Obsah</h3>
+                <p>{{ movie.description }}</p>
+            </div>
+            {% endif %}
+
+            <div class="movie-additional-info text-muted small">
+                <p>
+                    <em>Pridané: {{ movie.created|date:"F d, Y" }} |
+                    Naposledy upravené: {{ movie.updated|date:"F d, Y" }}</em>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

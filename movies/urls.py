@@ -27,5 +27,6 @@ urlpatterns = [
     # path('movies/', MoviesView.as_view(), name='movies'),
     # path('movies/', MoviesTemplateView.as_view(), name='movies'),
     path('movies/', MoviesListView.as_view(), name='movies'),
+    path('movie/<int:pk>/', MovieDetailsView.as_view(), name='movie'),
     path('creators/', CreatorListView.as_view(), name='creators'),
 ]
