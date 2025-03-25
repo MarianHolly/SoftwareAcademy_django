@@ -29,6 +29,8 @@ def home(request):
 class MoviesListView(ListView):
     template_name = 'movies.html'
     model = Movie
+    # Pozor, do template sa posielajú data pod názvom 'object_list'
+    # Preto to premenujema na 'movies'
     context_object_name = 'movies'
 
 
