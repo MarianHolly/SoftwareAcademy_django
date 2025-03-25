@@ -29,4 +29,5 @@ urlpatterns = [
     path('movies/', MoviesListView.as_view(), name='movies'),
     path('movie/<int:pk>/', MovieDetailsView.as_view(), name='movie'),
     path('creators/', CreatorListView.as_view(), name='creators'),
+    path('creator/<int:pk>/', CreatorDetailsView.as_view(), name='creator'),
 ]
