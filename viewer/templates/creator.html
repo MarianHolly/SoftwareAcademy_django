@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block title %}{{ creator.name }} {{ creator.surname }}{% endblock %}
+
+{% block content %}
+<div class="container creator-details my-5">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <h1 class="display-4 mb-4">
+                {{ creator.name }} {{ creator.surname }}
+            </h1>
+
+            <div class="creator-metadata mb-4">
+                <div class="row">
+                    <div class="col-md-6">
+                        {% if creator.country %}
+                        <p>
+                            <strong>Krajina:</strong>
+                            <span class="badge badge-secondary">{{ creator.country }}</span>
+                        </p>
+                        {% endif %}
+
+                        {% if creator.date_of_birth %}
+                        <p>
+                            <strong>Dátum narodenia:</strong>
+                            {{ creator.date_of_birth|date:"F d, Y" }}
+                            <br />
+                            {% if creator.date_of_death %}
+                                <span class="text-muted">Dátum úmtia: {{ creator.date_of_death|date:"F d, Y" }}</span>
+                            {% endif %}
+                        </p>
+                        {% endif %}
+
+                        {% if creator.date_of_birth %}
+                        <p>
+                            <strong>Vek:</strong>
+                            {% if creator.date_of_death %}
+                                {{ creator.date_of_birth|timesince:creator.date_of_death }}
+                            {% else %}
+                                {{ creator.date_of_birth|timesince }}
+                            {% endif %}
+                        </p>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-md-6">
+                        {% if creator.acting.all %}
+                        <p>
+                            <strong>Herec vo filmoch:</strong> <br />
+                            {% for movie in creator.acting.all|slice:":5" %}
+                                <span>{{ movie.title }}{% if not forloop.last %}, {% endif %}</span>
+                            {% endfor %}
+                            {% if creator.acting.all|length > 5 %}
+                                <small class="text-muted ml-2">(a {{ creator.acting.all|length|add:"-5" }} ďalšie)</small>
+                            {% endif %}
+                        </p>
+                        {% endif %}
+
+                        {% if creator.directing.all %}
+                        <p>
+                            <strong>Režisér vo filmoch:</strong> <br />
+                            {% for movie in creator.directing.all|slice:":5" %}
+                                <span>{{ movie.title }}{% if not forloop.last %}, {% endif %}</span>
+                            {% endfor %}
+                            {% if creator.directing.all|length > 5 %}
+                                <small class="text-muted ml-2">(a {{ creator.directing.all|length|add:"-5" }} ďalšie)</small>
+                            {% endif %}
+                        </p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            {% if creator.biography %}
+            <div class="creator-biography mb-4">
+                <h3>Biografia</h3>
+                <p>{{ creator.biography }}</p>
+            </div>
+            {% endif %}
+
+            <div class="creator-additional-info text-muted small">
+                <p>
+                    <em>Pridané: {{ creator.created|date:"F d, Y" }} |
+                    Naposledy upravené: {{ creator.updated|date:"F d, Y" }}</em>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
