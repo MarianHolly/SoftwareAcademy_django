@@ -4,7 +4,7 @@ from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import TemplateView, ListView, DetailView, FormView, UpdateView, CreateView, DeleteView
 
-from viewer.forms import MovieForm, MovieModelForm, CreatorModelForm, GenreModelForm
+from viewer.forms import MovieForm, MovieModelForm, CreatorModelForm, GenreModelForm, CountryModelForm
 from viewer.models import Creator, Movie, Genre, Country
 
 
@@ -155,7 +155,7 @@ class GenreCreateView(CreateView):
     success_url = reverse_lazy('genres')
 
     def form_invalid(self, form):
-        print("Validáčný problém s formulárom: 'GenreCreateView'")
+        print("Validáčný problém s formulárom: 'GenreModelForm'")
         return super().form_invalid(form)
 
 
@@ -188,13 +188,24 @@ class CountryDetailsView(DetailView):
 
 
 class CountryCreateView(CreateView):
-    pass
+    template_name = 'form.html'
+    form_class = CountryModelForm
+    success_url = reverse_lazy('countries')
 
 
 class CountryUpdateView(UpdateView):
-    pass
+    template_name = 'form.html'
+    form_class = CountryModelForm
+    model = Country
+    success_url = reverse_lazy('countries')
+
+    def form_invalid(self, form):
+        print("Validáčný problém s formulárom: 'CountryModelForm'")
+        return super().form_invalid(form)
 
 
 class CountryDeleteView(DeleteView):
-    pass
+    template_name = 'confirm_delete.html'
+    model = Country
+    success_url = reverse_lazy('countries')
 

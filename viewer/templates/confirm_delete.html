@@ -3,7 +3,7 @@
 {% block content %}
 <form method="post">
     {% csrf_token %}
-    <p>Si si istý, že chceš zmazať <strong>{{ object.title }}</strong> z databázy?</p>
+    <p>Si si istý, že chceš zmazať <strong>{{ object.title }}{{ object.name }} {{ object.surname }}</strong> z databázy?</p>
     <input type="submit" value="Zmazať" class="btn btn-danger">
     <input type="button" value="Späť" class="btn btn-primary" onclick="history.back()">
 </form>

@@ -197,3 +197,4 @@ class CountryModelForm(ModelForm):
         def clean_name(self):
             initial = self.cleaned_data['name']
             return initial.capitalize()
+

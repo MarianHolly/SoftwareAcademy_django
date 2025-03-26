@@ -29,4 +29,7 @@ urlpatterns = [
 
     path('countries/', CountriesListView.as_view(), name='countries'),
     path('country/<int:pk>/', CountryDetailsView.as_view(), name='country'),
+    path('country/create/', CountryCreateView.as_view(), name='country_create'),
+    path('country/update/<int:pk>/', CountryUpdateView.as_view(), name='country_update'),
+    path('country/delete/<int:pk>/', CountryDeleteView.as_view(), name='country_delete'),
 ]

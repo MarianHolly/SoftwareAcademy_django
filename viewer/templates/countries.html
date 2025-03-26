@@ -6,11 +6,11 @@
 
 {% block content %}
     <h1>Krajiny</h1>
-    <a href="" class="btn btn-primary">Pridať</a>
+    <a href="{% url 'country_create' %}" class="btn btn-primary">Pridať</a>
     <ul>
         {% for country in countries %}
             <li>
-                <a href="{% url 'country' country.id %}">{{ country }}</a>
+                <a href="{% url 'country' country.id %}">{{ country.name }}</a>
             </li>
         {% endfor %}
     </ul>
