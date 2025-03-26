@@ -170,6 +170,16 @@ Uložiť a načítať (DUMP/LOAD)
 
 #### Filtrovanie
 
+#### Vyhľadávanie
+
+24.03
+
+#### Autentikácia
+
+
+
+
+
 
 
 

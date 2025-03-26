@@ -6,13 +6,17 @@
 
 {% block content %}
     <h1>Tvorcovia</h1>
-    <a href="{% url 'creator_create' %}" class="btn btn-primary">Pridať</a>
+    {% if user.is_authenticated %}
+        <a href="{% url 'creator_create' %}" class="btn btn-primary">Pridať</a>
+    {% endif %}
     <ul>
         {% for creator in creators %}
             <li>
                 <a href="{% url 'creator' creator.id %}">{{ creator }}</a>
-                <a href="{% url 'creator_update' creator.id %}">✏️</a>
-                <a href="{% url 'creator_delete' creator.id %}">❌</a>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'creator_update' creator.id %}">✏️</a>
+                    <a href="{% url 'creator_delete' creator.id %}">❌</a>
+                {% endif %}
             </li>
         {% endfor %}
     </ul>

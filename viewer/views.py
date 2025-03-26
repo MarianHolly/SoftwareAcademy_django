@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.urls import reverse_lazy
 
@@ -65,7 +66,7 @@ class MovieDetailsView(DetailView):
         print("Formulár nie je validný.")"""
 
 
-class MovieCreateView(CreateView):
+class MovieCreateView(LoginRequiredMixin, CreateView):
     template_name = 'form.html' # šablóna formulára pre vytvorenie
     form_class = MovieModelForm # trieda formulára pre validáciu a uloženie
     success_url = reverse_lazy('movies') # kam presmerovať po úspešnom vytvorení
@@ -75,7 +76,7 @@ class MovieCreateView(CreateView):
         return super().form_invalid(form)
 
 
-class MovieUpdateView(UpdateView):
+class MovieUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'form.html'
     form_class = MovieModelForm
     model = Movie # model, ktorý sa upravuje - automaticky predvyplní formulár existujúcimi dátami
@@ -86,7 +87,7 @@ class MovieUpdateView(UpdateView):
         return super().form_invalid(form)
 
 
-class MovieDeleteView(DeleteView):
+class MovieDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'confirm_delete.html'
     model = Movie
     success_url = reverse_lazy('movies')
@@ -107,7 +108,7 @@ class CreatorDetailsView(DetailView):
     context_object_name = 'creator'
 
 
-class CreatorCreateView(CreateView):
+class CreatorCreateView(LoginRequiredMixin, CreateView):
     template_name = 'form.html'
     form_class = CreatorModelForm
     success_url = reverse_lazy('creators')
@@ -117,7 +118,7 @@ class CreatorCreateView(CreateView):
         return super().form_invalid(form)
 
 
-class CreatorUpdateView(UpdateView):
+class CreatorUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'form.html'
     form_class = CreatorModelForm
     model = Creator
@@ -128,7 +129,7 @@ class CreatorUpdateView(UpdateView):
         return super().form_invalid(form)
 
 
-class CreatorDeleteView(DeleteView):
+class CreatorDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'confirm_delete.html'
     model = Creator
     success_url = reverse_lazy('creators')

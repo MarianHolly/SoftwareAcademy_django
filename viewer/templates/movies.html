@@ -31,13 +31,17 @@
         </form>
     </div>
     <h1>Filmy</h1>
-    <a href="{% url 'movie_create' %}" class="btn btn-primary">Pridať</a>
+    {% if user.is_authenticated %}
+        <a href="{% url 'movie_create' %}" class="btn btn-primary">Pridať</a>
+    {% endif %}
     <ul>
         {% for movie in movies %}
             <li>
                 <a href="{% url 'movie' movie.id %}">{{ movie }}</a>
-                <a href="{% url 'movie_update' movie.id %}">✏️</a>
-                <a href="{% url 'movie_delete' movie.id %}">❌</a>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'movie_update' movie.id %}">✏️</a>
+                    <a href="{% url 'movie_delete' movie.id %}">❌</a>
+                {% endif %}
             </li>
         {% endfor %}
     </ul>
