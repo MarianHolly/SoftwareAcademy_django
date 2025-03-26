@@ -60,7 +60,7 @@
                         <p>
                             <strong>Režisér vo filmoch:</strong> <br />
                             {% for movie in creator.directing.all|slice:":5" %}
-                                <span>{{ movie.title }}{% if not forloop.last %}, {% endif %}</span>
+                                <a href="{% url 'movie' movie.id %}">{{ movie.title }}{% if not forloop.last %}, {% endif %}</a>
                             {% endfor %}
                             {% if creator.directing.all|length > 5 %}
                                 <small class="text-muted ml-2">(a {{ creator.directing.all|length|add:"-5" }} ďalšie)</small>

@@ -181,3 +181,19 @@ class GenreModelForm(ModelForm):
         def clean_name(self):
             initial = self.cleaned_data['name']
             return initial.capitalize()
+
+
+class CountryModelForm(ModelForm):
+
+    class Meta:
+        model = Country
+        fields = '__all__'
+
+        labels = {
+            'name': 'Názov',
+            'flag': 'Vlajka'
+        }
+
+        def clean_name(self):
+            initial = self.cleaned_data['name']
+            return initial.capitalize()

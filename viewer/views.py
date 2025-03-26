@@ -5,7 +5,7 @@ from django.views import View
 from django.views.generic import TemplateView, ListView, DetailView, FormView, UpdateView, CreateView, DeleteView
 
 from viewer.forms import MovieForm, MovieModelForm, CreatorModelForm, GenreModelForm
-from viewer.models import Creator, Movie, Genre
+from viewer.models import Creator, Movie, Genre, Country
 
 
 # Create your views here.
@@ -170,4 +170,31 @@ class GenreDeleteView(DeleteView):
     template_name = 'confirm_delete.html'
     model = Genre
     success_url = reverse_lazy('genres')
+
+
+#todo: ======================== COUNTRIES ========================
+
+
+class CountriesListView(ListView):
+    template_name = 'countries.html'
+    model = Country
+    context_object_name = 'countries'
+
+
+class CountryDetailsView(DetailView):
+    template_name = 'country.html'
+    model = Country
+    context_object_name = 'country'
+
+
+class CountryCreateView(CreateView):
+    pass
+
+
+class CountryUpdateView(UpdateView):
+    pass
+
+
+class CountryDeleteView(DeleteView):
+    pass
 

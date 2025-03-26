@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Krajiny
+{% endblock %}
+
+{% block content %}
+    <h1>Krajiny</h1>
+    <a href="" class="btn btn-primary">Pridať</a>
+    <ul>
+        {% for country in countries %}
+            <li>
+                <a href="{% url 'country' country.id %}">{{ country }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

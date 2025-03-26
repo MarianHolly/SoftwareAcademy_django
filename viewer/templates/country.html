@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {{ country }}
+{% endblock %}
+
+{% block content %}
+    <h1>{{ country }}</h1>
+    <a href="" class="btn btn-primary">Aktualizovať</a>
+    <a href="" class="btn btn-danger">Odstraniť</a>
+    <ul>
+        {% for movie in country.movies.all %}
+            <li><a href="{% url 'movie' movie.id %}">{{ movie }}</a></li>
+        {% endfor %}
+    </ul>
+{% endblock %}
