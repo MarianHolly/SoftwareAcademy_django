@@ -15,6 +15,8 @@
 
 ### Databáza
 
+![ER_DIAGRAM](./files/er_diagram.png)
+
 - [x] Genre
   - [x] name (String) 
 
