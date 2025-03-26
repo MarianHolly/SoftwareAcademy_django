@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.contrib.auth.views import LoginView
 from django.urls import path
 
 from viewer.views import *
@@ -35,4 +36,6 @@ urlpatterns = [
     path('country/delete/<int:pk>/', CountryDeleteView.as_view(), name='country_delete'),
 
     path('search/', search, name='search'),
+
+    path('accounts/login/', LoginView.as_view(), name='login'),
 ]
