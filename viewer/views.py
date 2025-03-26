@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 
 from django.views import View
-from django.views.generic import TemplateView, ListView, DetailView, FormView, UpdateView, CreateView
+from django.views.generic import TemplateView, ListView, DetailView, FormView, UpdateView, CreateView, DeleteView
 
 from viewer.forms import MovieForm, MovieModelForm
 from viewer.models import Creator, Movie
@@ -84,6 +84,12 @@ class MovieUpdateView(UpdateView):
     def form_invalid(self, form):
         print("Formulár nie je validný.")
         return super().form_invalid(form)
+
+
+class MovieDeleteView(DeleteView):
+    template_name = 'confirm_delete.html'
+    model = Movie
+    success_url = reverse_lazy('movies')
 
 
 #todo: ======================== CREATORS ========================
