@@ -166,3 +166,18 @@ class CreatorModelForm(ModelForm):
                 raise ValidationError(error_message)
 
             return cleaned_data
+
+
+class GenreModelForm(ModelForm):
+
+    class Meta:
+        model = Genre
+        fields = '__all__'
+
+        labels = {
+            'name': 'Názov'
+        }
+
+        def clean_name(self):
+            initial = self.cleaned_data['name']
+            return initial.capitalize()

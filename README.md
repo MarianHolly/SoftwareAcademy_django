@@ -166,6 +166,10 @@ Uložiť a načítať (DUMP/LOAD)
     - globálna validácia (clean()) pre validáciu závislostí medzi viacerými poľami
 - Prispôsobenie vzhľadu formulárov pomocou CSS a widgetov
 
+12.03
+
+#### Filtrovanie
+
 
 
 

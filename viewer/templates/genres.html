@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}
+{% endblock %}
+
+{% block content %}
+    <h1>Žánre</h1>
+    <a href="{% url 'genre_create' %}" class="btn btn-primary">Pridať</a>
+
+    <ul>
+        {% for genre in genres %}
+            <li><a href="{% url 'genre' genre.id %}">{{ genre }} ({{ genre.movies.count }})</a></li>
+            {% if genre.movies.count %}
+                {% comment %}
+                    <ul>
+                        {% for movie in genre.movies.all %}
+                            <li><a href="{% url 'movie' movie.id %}">{{ movie }}</a></li>
+                        {% endfor %}
+                    </ul>
+                {% endcomment %}
+            {% endif %}
+        {% endfor %}
+    </ul>
+{% endblock %}

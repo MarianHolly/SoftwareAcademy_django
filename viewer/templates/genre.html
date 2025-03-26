@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}
+    žáner: {{ genre }}
+{% endblock %}
+
+{% block content %}
+    <h1>{{ genre }}</h1>
+    <a href="{% url 'genre_update' genre.id %}" class="btn btn-primary">Aktualizovať</a>
+    <a href="{% url 'genre_delete' genre.id %}" class="btn btn-danger">Odstraniť</a>
+    <ul>
+        {% for movie in genre.movies.all %}
+            <li><a href="{% url 'movie' movie.id %}">{{ movie }}</a></li>
+        {% endfor %}
+    </ul>
+{% endblock %}

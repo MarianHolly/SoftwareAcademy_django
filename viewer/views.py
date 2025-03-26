@@ -4,8 +4,8 @@ from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import TemplateView, ListView, DetailView, FormView, UpdateView, CreateView, DeleteView
 
-from viewer.forms import MovieForm, MovieModelForm, CreatorModelForm
-from viewer.models import Creator, Movie
+from viewer.forms import MovieForm, MovieModelForm, CreatorModelForm, GenreModelForm
+from viewer.models import Creator, Movie, Genre
 
 
 # Create your views here.
@@ -132,3 +132,42 @@ class CreatorDeleteView(DeleteView):
     template_name = 'confirm_delete.html'
     model = Creator
     success_url = reverse_lazy('creators')
+
+
+#todo: ======================== GENRES ========================
+
+
+class GenresListView(ListView):
+    template_name = 'genres.html'
+    model = Genre
+    context_object_name = 'genres'
+
+
+class GenreDetailsView(DetailView):
+    template_name = 'genre.html'
+    model = Genre
+    context_object_name = 'genre'
+
+
+class GenreCreateView(CreateView):
+    template_name = 'form.html'
+    form_class = GenreModelForm
+    success_url = reverse_lazy('genres')
+
+    def form_invalid(self, form):
+        print("Validáčný problém s formulárom: 'GenreCreateView'")
+        return super().form_invalid(form)
+
+
+class GenreUpdateView(UpdateView):
+    template_name = 'form.html'
+    form_class = GenreModelForm
+    model = Genre
+    success_url = reverse_lazy('genres')
+
+
+class GenreDeleteView(DeleteView):
+    template_name = 'confirm_delete.html'
+    model = Genre
+    success_url = reverse_lazy('genres')
+
