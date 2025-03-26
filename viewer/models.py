@@ -53,6 +53,13 @@ class Creator(Model):
             return f"{self.name} {self.surname} ({self.date_of_birth.year})"
         return f"{self.name} {self.surname}"
 
+    def age(self):
+        if self.date_of_birth:
+            end_date = self.date_of_death or date.today()
+            return (end_date.year - self.date_of_birth.year -
+                    ((end_date.month, end_date.day) < (self.date_of_birth.month, self.date_of_birth.day)))
+        return None
+
 
 class Movie(Model):
     title = CharField(max_length=64, null=False, blank=False)
@@ -76,3 +83,18 @@ class Movie(Model):
 
     def __str__(self):
         return f"{self.title} ({self.released_date.year})"
+
+    def length_format(self):
+        # Prevod dĺžky filmu z minút na formát h:m
+        if self.length:
+            hours = self.length // 60
+            minutes = self.length % 60
+            return f"{hours}:{minutes:02}"
+        return None
+
+    def released_date_format(self):
+        if self.released_date:
+            return (f"{self.released_date.day}. "
+                    f"{self.released_date.month}. "
+                    f"{self.released_date.year}")
+        return None

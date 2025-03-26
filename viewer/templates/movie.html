@@ -34,11 +34,12 @@
                         {% endif %}
 
                         {% if movie.length %}
-                        <p><strong>Dĺžka:</strong> {{ movie.length }} minút</p>
+                        <p><strong>Dĺžka:</strong> {{ movie.length }} minút = {{ movie.length_format }}</p>
                         {% endif %}
 
                         {% if movie.released_date %}
                         <p><strong>Dátum premiery:</strong> {{ movie.released_date|date:"F d, Y" }}</p>
+                        <p><strong>Dátum premiery:</strong> {{ movie.released_date_format}}</p>
                         {% endif %}
                     </div>
 

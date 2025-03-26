@@ -34,11 +34,15 @@
                         {% if creator.date_of_birth %}
                         <p>
                             <strong>Vek:</strong>
-                            {% if creator.date_of_death %}
-                                {{ creator.date_of_birth|timesince:creator.date_of_death }}
-                            {% else %}
-                                {{ creator.date_of_birth|timesince }}
-                            {% endif %}
+                            {{ creator.age }} rokov
+                            {% comment %}
+                                {% if creator.date_of_death %}
+                                    {{ creator.date_of_birth|timesince:creator.date_of_death }}
+                                {% else %}
+                                    {{ creator.date_of_birth|timesince }}
+                                {% endif %}
+                            {% endcomment %}
+                            <br>
                         </p>
                         {% endif %}
                     </div>
