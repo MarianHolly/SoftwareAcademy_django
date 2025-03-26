@@ -84,6 +84,11 @@
                     Naposledy upravené: {{ creator.updated|date:"F d, Y" }}</em>
                 </p>
             </div>
+
+            <div>
+                <a href="{% url 'creator_update' creator.id %}" class="btn btn-primary">Aktualizovať</a>
+                <a href="{% url 'creator_delete' creator.id %}" class="btn btn-danger">Vymazať</a>
+            </div>
         </div>
     </div>
 </div>

@@ -120,7 +120,7 @@ Uložiť a načítať (DUMP/LOAD)
 - Data môžeme exportovať z databáze `python manage.py dumpdata viewer --output fixtures.json`
 - Data môžeme importovať do databázy `python manage.py loaddata fixtures.json`
 
-07.03
+10.03
 
 #### Queries - dotazy
 - Django ORM poskytuje API pre prácu s databázou
@@ -150,14 +150,21 @@ Uložiť a načítať (DUMP/LOAD)
 - Lepšie možnosti rozšírenia a prispôsobenia
 - Jednoduchšia práca s formulármi a CRUD operáciami
 
+11.-12.03
+
 #### Formuláre
 - Vytvorenie formulárov pre manipuláciu s dátami
-- Použitie `ModelForm` pre automatické generovanie formulárov z modelov
-- Validácia vstupných dát
-- Spracovanie formulárov v zobrazeniach
+- `ModelForm` je špeciálny typ formulára v Django, ktorý automaticky generuje formulárové polia podľa modelu.
+- Umožňuje jednoduché vytváranie formulárov priamo z existujúcich modelov. Zjednodušuje validáciu a ukladanie dát.
+- Kľúčové komponenty formulára: 
+  - **trieda Meta** 
+    - model (určuje, ktorý model sa použije ako základ formulára)
+    - fields (definuje, ktoré polia z modelu budú zahrnuté do formulára)
+    - labels (labels: umožňuje prepísať pôvodné menovky polí)
+  - **validačné metódy**
+    - špeciálne metódy pre validáciu konkrétnych polí pred celkovou validáciou (kontrola dátumov)
+    - globálna validácia (clean()) pre validáciu závislostí medzi viacerými poľami
 - Prispôsobenie vzhľadu formulárov pomocou CSS a widgetov
-- Implementácia vlastných validačných metód
-
 
 
 

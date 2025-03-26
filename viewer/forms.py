@@ -1,5 +1,8 @@
-from django.forms import Form, CharField, ModelChoiceField, IntegerField, DateField, Textarea, ModelForm
-from django.forms.widgets import TextInput, NumberInput
+import re
+from datetime import date
+
+from django.core.exceptions import ValidationError
+from django.forms import Form, CharField, ModelChoiceField, IntegerField, Textarea, DateField, ModelForm, TextInput, NumberInput
 
 from viewer.models import Country, Genre, Creator, Movie
 
@@ -16,6 +19,7 @@ class MovieForm(Form):
     directors = ModelChoiceField(queryset=Creator.objects.all(), required=False)
     description = CharField(widget=Textarea, required=False)
     released_date = DateField(required=False)
+
 
 class MovieModelForm(ModelForm):
 
@@ -89,3 +93,76 @@ class MovieModelForm(ModelForm):
             if initial and initial <= 0:  # Ak hodnota existuje a je menšia alebo rovná nule
                 raise ValidationError("Dĺžka filmu musí byť kladné číslo.")
             return initial
+
+
+class CreatorModelForm(ModelForm):
+
+    class Meta:
+        model = Creator
+        fields = '__all__'
+
+        labels = {
+            'name': 'Meno',
+            'surname': 'Priezvisko',
+            'country': 'Krajina',
+            'date_of_birth': 'Dátum narodenia',
+            'date_of_death': 'Dátum úmrtia',
+            'biography': 'Biografia'
+        }
+
+        date_of_birth = DateField(required=False,
+                                  widget=NumberInput(attrs={'type': 'date'}),
+                                  label='Dátum narodenia')
+        date_of_death = DateField(required=False,
+                                  widget=NumberInput(attrs={'type': 'date'}),
+                                  label='Dátum úmrtia')
+
+        def clean_name(self):
+            initial = self.cleaned_data['name']
+            if initial:
+                return initial.capitalize()
+            return initial
+
+        def clean_surname(self):
+            initial = self.cleaned_data['surname']
+            if initial:
+                return initial.capitalize()
+            return initial
+
+        def clean_date_of_birth(self):
+            initial = self.cleaned_data['date_of_birth']
+            if initial and initial > date.today():
+                return ValidationError('Dátom narodenia nesmie byť v budúcnosti.')
+            return initial
+
+        def clean_date_of_death(self):
+            initial = self.cleaned_data['date_of_death']
+            if initial and initial > date.today():
+                return ValidationError('Dátom úmrtia nesmie byť v budúcnosti.')
+            return initial
+
+        def clean_biography(self):
+            initial = self.cleaned_data['biography']
+            # Rozdelenie textu na vety na základe ., !, ?
+            sentences = re.split(r'(?<=[.!?])\s+', initial.strip())
+            # Kapitalizácia každej vety a spojenie späť do textu
+            return ' '.join(sentence.capitalize() for sentence in sentences if sentence)
+
+        def clean(self):
+            cleaned_data = super().clean()
+            error_message = ''
+
+            initial_name = cleaned_data['name']
+            initial_surname = cleaned_data['surname']
+            if not initial_name and not initial_surname:
+                error_message += "Je nutné zadať meno nebo priezvisko (alebo oboje)."
+
+            initial_date_of_birth = cleaned_data.get('date_of_birth')
+            initial_date_of_death = cleaned_data.get('date_of_death')
+            if initial_date_of_birth and initial_date_of_death and initial_date_of_death <= initial_date_of_birth:
+                error_message += "Dátom úmrtia nesmie byť skôr, ako dátum narodenia."
+
+            if error_message:
+                raise ValidationError(error_message)
+
+            return cleaned_data

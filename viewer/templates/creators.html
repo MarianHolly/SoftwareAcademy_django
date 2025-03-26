@@ -1,14 +1,19 @@
 {% extends "base.html" %}
 
 {% block title %}
-    Seznam tvůrců
+    Zoznam tvorcov
 {% endblock %}
 
 {% block content %}
-    <h1>Tvůrci</h1>
+    <h1>Tvorcovia</h1>
+    <a href="{% url 'creator_create' %}" class="btn btn-primary">Pridať</a>
     <ul>
         {% for creator in creators %}
-            <li><a href="{% url 'creator' creator.id %}">{{ creator }}</a></li>
+            <li>
+                <a href="{% url 'creator' creator.id %}">{{ creator }}</a>
+                <a href="{% url 'creator_update' creator.id %}">✏️</a>
+                <a href="{% url 'creator_delete' creator.id %}">❌</a>
+            </li>
         {% endfor %}
     </ul>
 {% endblock %}
