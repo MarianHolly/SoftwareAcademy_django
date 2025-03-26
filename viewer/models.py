@@ -53,6 +53,9 @@ class Creator(Model):
             return f"{self.name} {self.surname} ({self.date_of_birth.year})"
         return f"{self.name} {self.surname}"
 
+    def full_name(self):
+        return f"{self.name} {self.surname}"
+
     def age(self):
         if self.date_of_birth:
             end_date = self.date_of_death or date.today()

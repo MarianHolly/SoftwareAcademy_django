@@ -32,4 +32,6 @@ urlpatterns = [
     path('country/create/', CountryCreateView.as_view(), name='country_create'),
     path('country/update/<int:pk>/', CountryUpdateView.as_view(), name='country_update'),
     path('country/delete/<int:pk>/', CountryDeleteView.as_view(), name='country_delete'),
+
+    path('search/', search, name='search'),
 ]

@@ -209,3 +209,37 @@ class CountryDeleteView(DeleteView):
     model = Country
     success_url = reverse_lazy('countries')
 
+
+#todo: ======================== SEARCH ========================
+
+
+def search(request):
+    if request.method == 'POST':
+        search_string = request.POST.get('search')
+        if search_string:
+            movies_title = Movie.objects.filter(title__contains=search_string)
+            creator_surname = Creator.objects.filter(surname__contains=search_string)
+            creator_name = Creator.objects.filter(name__contains=search_string)
+
+            context = {'search': search_string,
+                       'movies_title': movies_title,
+                       'creator_name': creator_name,
+                       'creator_surname': creator_surname}
+            return render(request, 'search.html', context)
+    return render(request, 'home.html')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

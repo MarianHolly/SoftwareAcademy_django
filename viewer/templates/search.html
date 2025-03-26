@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Vyhľadaj '{{ search }}'
+{% endblock %}
+
+{% block content %}
+    <h1>Výsledky vyhľadávania dotazu '{{ search }}'</h1>
+
+    <h3>Výsledky hľadania medzi filmami:</h3>
+    <ul>
+        {% for movie in movies_title %}
+            <li><a href="{% url 'movie' movie.id %}">{{ movie.title }}</a></li>
+        {% empty %}
+            Nebolo nič nájdené.
+        {% endfor %}
+    </ul>
+
+    <h3>Výsledky hľadania medzi tvorcami podľa mena:</h3>
+    <ul>
+        {% for creator in creator_name %}
+            <li><a href="{% url 'creator' creator.id %}">{{ creator.name }} {{ creator.surname }}</a></li>
+        {% empty %}
+            Nebolo nič nájdené.
+        {% endfor %}
+    </ul>
+
+    <h3>Výsledky hľadania medzi tvorcami podľa priezviska:</h3>
+    <ul>
+        {% for creator in creator_surname %}
+            <li><a href="{% url 'creator' creator.id %}">{{ creator.name }} {{ creator.surname }}</a></li>
+        {% empty %}
+            Nebolo nič nájdené.
+        {% endfor %}
+    </ul>
+{% endblock %}
