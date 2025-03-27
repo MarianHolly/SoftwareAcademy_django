@@ -1,7 +1,8 @@
 from django.contrib import admin
 from django.contrib.auth.views import LoginView
-from django.urls import path
+from django.urls import path, include
 
+from accounts.views import SubmittableLoginView, user_logout
 from viewer.views import *
 
 urlpatterns = [
@@ -37,5 +38,13 @@ urlpatterns = [
 
     path('search/', search, name='search'),
 
-    path('accounts/login/', LoginView.as_view(), name='login'),
+    # ====================== ACCOUNTS
+    # LOGIN pomocou LoginView - vyžaduje definovať template v 'registration/login.html'
+    # path('accounts/login/', LoginView.as_view(), name='login'),
+
+    # Preddefinovať akúkoľvek cestu
+    path('accounts/login/', SubmittableLoginView.as_view(), name='login'),
+    path('accounts/logout/', user_logout, name='logout'),
+    # DJANGO provides urls
+    path('accounts/', include('django.contrib.auth.urls'))
 ]
