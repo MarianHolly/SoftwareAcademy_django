@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.views import LoginView
 from django.urls import path, include
 
-from accounts.views import SubmittableLoginView, user_logout
+from accounts.views import SubmittableLoginView, user_logout, SignUpView
 from viewer.views import *
 
 urlpatterns = [
@@ -45,6 +45,7 @@ urlpatterns = [
     # Preddefinovať akúkoľvek cestu
     path('accounts/login/', SubmittableLoginView.as_view(), name='login'),
     path('accounts/logout/', user_logout, name='logout'),
+    path('accounts/signup/', SignUpView.as_view(), name='signup'),
     # DJANGO provides urls
     path('accounts/', include('django.contrib.auth.urls'))
 ]
