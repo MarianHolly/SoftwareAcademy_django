@@ -1,4 +1,4 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.shortcuts import render
 from django.urls import reverse_lazy
 
@@ -66,31 +66,34 @@ class MovieDetailsView(DetailView):
         print("Formulár nie je validný.")"""
 
 
-class MovieCreateView(LoginRequiredMixin, CreateView):
+class MovieCreateView(PermissionRequiredMixin, CreateView):
     template_name = 'form.html' # šablóna formulára pre vytvorenie
     form_class = MovieModelForm # trieda formulára pre validáciu a uloženie
     success_url = reverse_lazy('movies') # kam presmerovať po úspešnom vytvorení
+    permission_required = 'viewer.add_movie'
 
     def form_invalid(self, form):
         print("Formulár nie je validný.")
         return super().form_invalid(form)
 
 
-class MovieUpdateView(LoginRequiredMixin, UpdateView):
+class MovieUpdateView(PermissionRequiredMixin, UpdateView):
     template_name = 'form.html'
     form_class = MovieModelForm
     model = Movie # model, ktorý sa upravuje - automaticky predvyplní formulár existujúcimi dátami
     success_url = reverse_lazy('movies')
+    permission_required = 'viewer.change_movie'
 
     def form_invalid(self, form):
         print("Formulár nie je validný.")
         return super().form_invalid(form)
 
 
-class MovieDeleteView(LoginRequiredMixin, DeleteView):
+class MovieDeleteView(PermissionRequiredMixin, DeleteView):
     template_name = 'confirm_delete.html'
     model = Movie
     success_url = reverse_lazy('movies')
+    permission_required = 'viewer.delete_movie'
 
 
 #todo: ======================== CREATORS ========================
