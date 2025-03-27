@@ -6,6 +6,7 @@ from django.views import View
 from django.views.generic import TemplateView, ListView, DetailView, FormView, UpdateView, CreateView, DeleteView
 
 from viewer.forms import MovieForm, MovieModelForm, CreatorModelForm, GenreModelForm, CountryModelForm
+from viewer.mixins import StaffRequiredMixin
 from viewer.models import Creator, Movie, Genre, Country
 
 
@@ -111,31 +112,35 @@ class CreatorDetailsView(DetailView):
     context_object_name = 'creator'
 
 
-class CreatorCreateView(LoginRequiredMixin, CreateView):
+class CreatorCreateView(PermissionRequiredMixin, CreateView):
     template_name = 'form.html'
     form_class = CreatorModelForm
     success_url = reverse_lazy('creators')
+    permission_required = 'viewer.add_creator'
 
     def form_invalid(self, form):
         print("Formulár 'CreatorModelForm' nie je valídny.")
         return super().form_invalid(form)
 
 
-class CreatorUpdateView(LoginRequiredMixin, UpdateView):
+class CreatorUpdateView(PermissionRequiredMixin, UpdateView):
     template_name = 'form.html'
     form_class = CreatorModelForm
     model = Creator
     success_url = reverse_lazy('creators')
+    permission_required = 'viewer.change_creator'
 
     def form_invalid(self, form):
         print("Formulár 'CreatorModelForm' nie je valídny.")
         return super().form_invalid(form)
 
 
-class CreatorDeleteView(LoginRequiredMixin, DeleteView):
+class CreatorDeleteView(#StaffRequiredMixin,
+        PermissionRequiredMixin, DeleteView):
     template_name = 'confirm_delete.html'
     model = Creator
     success_url = reverse_lazy('creators')
+    permission_required = 'viewer.delete_creator'
 
 
 #todo: ======================== GENRES ========================
