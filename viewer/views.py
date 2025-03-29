@@ -1,13 +1,15 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from django.shortcuts import render
+from django.db.models import Avg
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 
 from django.views import View
 from django.views.generic import TemplateView, ListView, DetailView, FormView, UpdateView, CreateView, DeleteView
 
-from viewer.forms import MovieForm, MovieModelForm, CreatorModelForm, GenreModelForm, CountryModelForm
+from viewer.forms import MovieForm, MovieModelForm, CreatorModelForm, GenreModelForm, CountryModelForm, ReviewModelForm
 from viewer.mixins import StaffRequiredMixin
-from viewer.models import Creator, Movie, Genre, Country
+from viewer.models import Creator, Movie, Genre, Country, Review
+from accounts.models import Profile
 
 
 # Create your views here.
@@ -44,6 +46,38 @@ class MovieDetailsView(DetailView):
     template_name = 'movie.html'
     model = Movie
     context_object_name = 'movie'
+
+
+def movie(request, pk):
+    if Movie.objects.filter(id=pk).exists():
+        movie_ = Movie.objects.get(id=pk)
+        if request.method == 'POST':
+            # spracovanie formularu
+            rating = request.POST.get('rating')
+            comment = request.POST.get('comment')
+
+            # ak od užívatela máme review - tak ho aktualizujeme
+            if Review.objects.filter(movie=movie_, reviewer=Profile.objects.get(user=request.user)).exists():
+                user_review = Review.objects.get(movie=movie_, reviewer=Profile.objects.get(user=request.user))
+                user_review.rating = rating
+                user_review.comment = comment
+                user_review.save()
+            else:
+                Review.objects.create(
+                    movie=movie_,
+                    reviewer=Profile.objects.get(user=request.user),
+                    rating=rating,
+                    comment=comment)
+
+        rating_avg = movie_.reviews.aggregate(Avg('rating'))['rating__avg']
+        rating_count = movie_.reviews.filter(rating__isnull=False).count()
+
+        context = {'movie': movie_,
+                   'review_form': ReviewModelForm,
+                   'rating_avg': rating_avg,
+                   'rating_count': rating_count}
+        return render(request, 'movie.html', context)
+    return redirect('movies')
 
 
 #todo: ======================== FORM - CREATE, EDIT, DELETE ========================
@@ -266,7 +300,10 @@ def movie_filter(request):
     return render(request, 'home.html')
 
 
-
+class ReviewDeleteView(DeleteView):
+    template_name = 'confirm_delete.html'
+    model = Review
+    success_url = reverse_lazy('movies')
 
 
 

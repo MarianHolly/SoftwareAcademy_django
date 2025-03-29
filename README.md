@@ -175,8 +175,27 @@ Uložiť a načítať (DUMP/LOAD)
 24.03
 
 #### Autentikácia
+- registracia - login, logout - zmena hesla - reset hesla
+- definovat login a zmeniť / upraviť template
+- predefinocat user logout - z formulara na odkaz
+- vytvorit prihlasovanie
+- vytvorit profil z user - OneToOneField
+- registracny formular vybrali len niektore polozky z user
+- pridat polozky = rozsirenie formularu
+- @atomic save method - okrem vytvorit užívatela, aj vytvorit profil
+- templats - podla prihlasenia zobrazovať prvky na stranke
 
+- 25.03
 
+#### Autorizácia
+- PermissionRequiredMixins
+- 403 Page - vytvorit vlastnu template for chybovu hlasku
+- permission based - template prvky zobrazovat (permission_required)
+- tvorenie skupin v admin (editory, creators,...)
+- django umoznuje testovanie oprávnení
+
+- Review feature
+- spracovanie formularu a ulozenie na spravne miesto
 
 
 

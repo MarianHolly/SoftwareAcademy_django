@@ -12,7 +12,8 @@ urlpatterns = [
     # path('movies/', MoviesView.as_view(), name='movies'),
     # path('movies/', MoviesTemplateView.as_view(), name='movies'),
     path('movies/', MoviesListView.as_view(), name='movies'),
-    path('movie/<int:pk>/', MovieDetailsView.as_view(), name='movie'),
+    # path('movie/<int:pk>/', MovieDetailsView.as_view(), name='movie'),
+    path('movie/<int:pk>/', movie, name='movie'),
     path('movie/create/', MovieCreateView.as_view(), name='movie_create'),
     path('movie/update/<int:pk>/', MovieUpdateView.as_view(), name='movie_update'),
     path('movie/delete/<int:pk>/', MovieDeleteView.as_view(), name='movie_delete'),
@@ -36,6 +37,7 @@ urlpatterns = [
     path('country/update/<int:pk>/', CountryUpdateView.as_view(), name='country_update'),
     path('country/delete/<int:pk>/', CountryDeleteView.as_view(), name='country_delete'),
 
+    path('review/delete/<int:pk>/', ReviewDeleteView.as_view(), name='review_delete'),
     path('search/', search, name='search'),
 
     # ====================== ACCOUNTS

@@ -4,7 +4,7 @@ from datetime import date
 from django.core.exceptions import ValidationError
 from django.forms import Form, CharField, ModelChoiceField, IntegerField, Textarea, DateField, ModelForm, TextInput, NumberInput
 
-from viewer.models import Country, Genre, Creator, Movie
+from viewer.models import Country, Genre, Creator, Movie, Review
 
 
 # Prvý prístup
@@ -22,7 +22,6 @@ class MovieForm(Form):
 
 
 class MovieModelForm(ModelForm):
-
     class Meta:
         """ Meta trieda definuje metadáta formulára
         - konfiguráciu ako sa má formulár správať a aké dáta má obsahovať. """
@@ -96,7 +95,6 @@ class MovieModelForm(ModelForm):
 
 
 class CreatorModelForm(ModelForm):
-
     class Meta:
         model = Creator
         fields = '__all__'
@@ -169,7 +167,6 @@ class CreatorModelForm(ModelForm):
 
 
 class GenreModelForm(ModelForm):
-
     class Meta:
         model = Genre
         fields = '__all__'
@@ -184,7 +181,6 @@ class GenreModelForm(ModelForm):
 
 
 class CountryModelForm(ModelForm):
-
     class Meta:
         model = Country
         fields = '__all__'
@@ -198,3 +194,15 @@ class CountryModelForm(ModelForm):
             initial = self.cleaned_data['name']
             return initial.capitalize()
 
+
+class ReviewModelForm(ModelForm):
+    class Meta:
+        model = Review
+        fields = ['rating', 'comment']
+
+        labels = {
+            'rating': 'Hodnotenie',
+            'comment': 'Komentár'
+        }
+
+        rating = IntegerField(min_value=1, max_value=5, required=False)
