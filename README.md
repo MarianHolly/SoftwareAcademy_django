@@ -46,7 +46,7 @@
   - [x] description (String)
   - [x] released_date (Date)
   - [ ] rating (Float)
-  - [ ] images (1:n -> ??)
+  - [ ] images (1:n -> Image)
   - [ ] video_url (String)
 
 - [ ] Review
@@ -58,6 +58,12 @@
   - [ ] updated (DateTime) 
 
 - [ ] User (default from Django)
+
+- [ ] Image
+  - [x] image (file)
+  - [x] movie (-> Movie)
+  - [ ] actors (n:m -> Creator)
+  - [ ] description
 
 -----
 
