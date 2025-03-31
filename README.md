@@ -194,11 +194,15 @@ Uložiť a načítať (DUMP/LOAD)
 - tvorenie skupin v admin (editory, creators,...)
 - django umoznuje testovanie oprávnení
 
-- Review feature
-- spracovanie formularu a ulozenie na spravne miesto
+Review feature
+- vytvorit novy model (linked to Movie and Profile)
+- vytvorit formular - urcite fields
+- formular vlozit do movie template - if_authenticated
+- vytvorit view pre spracovanie formulara 
+  - ak review of daneho uzivatela uz existuje, tak update
+- template for display reviews, agrigation methods na celkove hodnotenie filmu
 
-
-
-
+#### Panel Správcu
+- 
 
 
