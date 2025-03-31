@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Obrázky
+{% endblock %}
+
+{% block content %}
+    <h1>Obrázky</h1>
+    {% if perms.viewer.add_image %}
+        <a href="{% url 'image_create' %}" class="btn btn-primary">Pridať</a>
+    {% endif %}
+    <ul>
+        {% for image in images %}
+            <li>
+                <a href="{% url 'image' image.id %}">
+                    <img src="{{ image.image.url }}" alt="{{ image.description }}" width="100px">
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

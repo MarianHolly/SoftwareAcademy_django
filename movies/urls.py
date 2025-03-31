@@ -1,3 +1,5 @@
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.auth.views import LoginView
 from django.urls import path, include
@@ -40,6 +42,12 @@ urlpatterns = [
     path('review/delete/<int:pk>/', ReviewDeleteView.as_view(), name='review_delete'),
     path('search/', search, name='search'),
 
+    path('images/', ImageListView.as_view(), name='images'),
+    path('image/<int:pk>/', ImageDetailView.as_view(), name='image'),
+    path('image/create/', ImageCreateView.as_view(), name='image_create'),
+    path('image/update/<int:pk>/', ImageUpdateView.as_view(), name='image_update'),
+    path('image/delete/<int:pk>/', ImageDeleteView.as_view(), name='image_delete'),
+
     # ====================== ACCOUNTS
     # LOGIN pomocou LoginView - vyžaduje definovať template v 'registration/login.html'
     # path('accounts/login/', LoginView.as_view(), name='login'),
@@ -50,4 +58,4 @@ urlpatterns = [
     path('accounts/signup/', SignUpView.as_view(), name='signup'),
     # DJANGO provides urls
     path('accounts/', include('django.contrib.auth.urls'))
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

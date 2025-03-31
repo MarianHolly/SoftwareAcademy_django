@@ -4,7 +4,7 @@ from datetime import date
 from django.core.exceptions import ValidationError
 from django.forms import Form, CharField, ModelChoiceField, IntegerField, Textarea, DateField, ModelForm, TextInput, NumberInput
 
-from viewer.models import Country, Genre, Creator, Movie, Review
+from viewer.models import Country, Genre, Creator, Movie, Review, Image
 
 
 # Prvý prístup
@@ -206,3 +206,9 @@ class ReviewModelForm(ModelForm):
         }
 
         rating = IntegerField(min_value=1, max_value=5, required=False)
+
+
+class ImageModelForm(ModelForm):
+    class Meta:
+        model = Image
+        fields = '__all__'

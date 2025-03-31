@@ -1,7 +1,7 @@
 from importlib.metadata import requires
 
 from django.db.models import DateField, DateTimeField, CharField, ForeignKey, IntegerField, ManyToManyField, Model, \
-    SET_NULL, TextField, CASCADE
+    SET_NULL, TextField, CASCADE, ImageField
 
 from accounts.models import Profile
 
@@ -127,3 +127,16 @@ class Review(Model):
 
     def __str__(self):
         return f"{self.reviewer} = {self.movie} - {self.rating}"
+
+
+class Image(Model):
+    image = ImageField(upload_to='images/', default=None, null=False, blank=False)
+    movie = ForeignKey(Movie, on_delete=CASCADE, null=False, blank=False, related_name='images')
+    creators = ManyToManyField(Creator, blank=True, related_name='images')
+    description = TextField(null=True, blank=True)
+
+    def __repr__(self):
+        return f"Image (image={self.image})"
+
+    def __str__(self):
+        return f"Image: {self.image}"

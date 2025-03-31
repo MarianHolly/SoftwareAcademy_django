@@ -10,6 +10,14 @@
                 {{ creator.name }} {{ creator.surname }}
             </h1>
 
+        <div class="creator-images">
+                {% for image in creator.images.all %}
+                    <span class="creator-image">
+                        <img src="{{ image.image.url }}" alt="{{ image.description }}" width="200px">
+                    </span>
+                {% endfor %}
+            </div>
+
             <div class="creator-metadata mb-4">
                 <div class="row">
                     <div class="col-md-6">

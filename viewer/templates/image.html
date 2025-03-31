@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Obrázok: {{ image.description }}
+{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <img src="{{ image.image.url }}" alt="{{ image.description }}" height="80%" >
+    </div>
+
+    <div class="image.details mt-4">
+        {% if image.movie %}
+            <div class="image-movie mb-2">
+                Film: <a href="{% url 'movie' image.movie.id %}">{{ image.movie.title }}</a>
+            </div>
+        {% endif %}
+        {% if image.creators.all %}
+            <div class="image-creator mb-2">
+                {% for creator in image.creators.all %}
+                    <a href="{% url 'creator' creator.id %}">{{ creator }}</a>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <div class="image.description mb-2">
+            Popis: {{ image.description }}
+        </div>
+
+    {% if perms.viewer.change_image %}
+        <a href="{% url 'image_update' image.id %}" class="btn btn-primary">Aktualizovat</a>
+        <a href="{% url 'image_delete' image.id %}" class="btn btn-danger">Vymazať</a>
+
+    {% endif %}
+    </div>
+{% endblock %}

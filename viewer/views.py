@@ -6,9 +6,10 @@ from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import TemplateView, ListView, DetailView, FormView, UpdateView, CreateView, DeleteView
 
-from viewer.forms import MovieForm, MovieModelForm, CreatorModelForm, GenreModelForm, CountryModelForm, ReviewModelForm
+from viewer.forms import MovieForm, MovieModelForm, CreatorModelForm, GenreModelForm, CountryModelForm, ReviewModelForm, \
+    ImageModelForm
 from viewer.mixins import StaffRequiredMixin
-from viewer.models import Creator, Movie, Genre, Country, Review
+from viewer.models import Creator, Movie, Genre, Country, Review, Image
 from accounts.models import Profile
 
 
@@ -306,12 +307,39 @@ class ReviewDeleteView(DeleteView):
     success_url = reverse_lazy('movies')
 
 
+#todo: ======================== IMAGES ========================
 
 
+class ImageListView(ListView):
+    template_name = 'images.html'
+    model = Image
+    context_object_name = 'images'
 
 
+class ImageDetailView(DetailView):
+    template_name = 'image.html'
+    model = Image
+    context_object_name = 'image'
 
 
+class ImageCreateView(PermissionRequiredMixin, CreateView):
+    template_name = 'form_image.html'
+    form_class = ImageModelForm
+    success_url = reverse_lazy('images')
+    permission_required = 'viewer.add_image'
 
+
+class ImageUpdateView(PermissionRequiredMixin, UpdateView):
+    template_name = 'form_image.html'
+    form_class = ImageModelForm
+    success_url = reverse_lazy('images')
+    model = Image
+    permission_required = 'viewer.change_image'
+
+
+class ImageDeleteView(DeleteView):
+    template_name = 'confirm_delete.html'
+    model = Image
+    success_url = reverse_lazy('images')
 
 

@@ -229,3 +229,7 @@ Uložiť a načítať (DUMP/LOAD)
 - Vytvorenie vlastných admin views pre špeciálne operácie 
 - Priradenie oprávnení pre rôzne skupiny užívateľov v admin rozhraní
 
+#### Images
+- Inštalovať `Pillow` package
+- ImageField pre modely, do settings a urls vložiť MEDIA_ROOT, MEDIA_URL
+- Definovať formulár na pridávanie obrázkov s `enctype="multipart/form-data"`
