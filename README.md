@@ -169,40 +169,57 @@ Uložiť a načítať (DUMP/LOAD)
 12.03
 
 #### Filtrovanie
+- Umožňuje zobraziť len podmnožinu dát na základe kritérií 
+- Implementácia pomocou metódy get_queryset() v class-based views 
+- Filtrovanie cez URL parametre: /filmy/?kategoria=komedia&rok=2023 
+- Použitie Django ORM filtrov: Movie.objects.filter(category='komedia', year=2023)
+- Možnosť kombinácie viacerých filtrov pomocou Q objektov: Q(category='komedia') | Q(category='drama')
+- Filtrovanie v šablónach pomocou template tagov a filtrov
 
 #### Vyhľadávanie
+- Implementácia pomocou formulárov a class-based views 
+- Vyhľadávanie v textových poliach pomocou icontains (case-insensitive): Movie.objects.filter(title__icontains=search_query)
+- Vyhľadávanie vo viacerých poliach naraz pomocou Q objektov: Q(title__icontains=query) | Q(description__icontains=query)
+- Možnosť vytvorenia pokročilého vyhľadávania s viacerými kritériami
+
 
 24.03
 
 #### Autentikácia
-- registracia - login, logout - zmena hesla - reset hesla
-- definovat login a zmeniť / upraviť template
-- predefinocat user logout - z formulara na odkaz
-- vytvorit prihlasovanie
-- vytvorit profil z user - OneToOneField
-- registracny formular vybrali len niektore polozky z user
-- pridat polozky = rozsirenie formularu
-- @atomic save method - okrem vytvorit užívatela, aj vytvorit profil
-- templats - podla prihlasenia zobrazovať prvky na stranke
+- Registrácia, prihlásenie (login), odhlásenie (logout), zmena hesla, reset hesla 
+- Definovanie vlastnej login stránky a upravenie príslušnej šablóny 
+- Predefinovanie user logout - zmena z formulára na jednoduchý odkaz 
+- Vytvorenie prihlasovania pomocou vstavaných Django view funkcií 
+- Vytvorenie profilu užívateľa pomocou modelu s väzbou OneToOneField na User model 
+- Registračný formulár obsahujúci len vybrané položky z user modelu 
+- Rozšírenie formulára o dodatočné položky pre profil 
+- Použitie dekorátora @atomic v metóde save pre vytvorenie užívateľa aj profilu v jednej transakcii 
+- Úprava šablón - zobrazovanie rôznych prvkov na stránke podľa stavu prihlásenia užívateľa
 
-- 25.03
+25.03
 
 #### Autorizácia
-- PermissionRequiredMixins
-- 403 Page - vytvorit vlastnu template for chybovu hlasku
-- permission based - template prvky zobrazovat (permission_required)
-- tvorenie skupin v admin (editory, creators,...)
-- django umoznuje testovanie oprávnení
+- Implementácia pomocou PermissionRequiredMixins v class-based views 
+- Vytvorenie vlastnej šablóny pre chybovú hlášku 403 (Forbidden)
+- Podmienené zobrazovanie prvkov v šablóne na základe oprávnení (permission_required)
+- Tvorenie a správa skupín užívateľov v administrátorskom rozhraní (editory, creators,...)
+- Django poskytuje nástroje na testovanie oprávnení užívateľov 
+- Kontrola oprávnení na úrovni views, modelov aj šablón
 
-Review feature
-- vytvorit novy model (linked to Movie and Profile)
-- vytvorit formular - urcite fields
-- formular vlozit do movie template - if_authenticated
-- vytvorit view pre spracovanie formulara 
-  - ak review of daneho uzivatela uz existuje, tak update
-- template for display reviews, agrigation methods na celkove hodnotenie filmu
+#### Review Feature
+- Vytvorenie nového modelu Review s väzbou na modely Movie a Profile 
+- Vytvorenie formulára s definovanými poľami pre hodnotenie 
+- Vloženie formulára do šablóny filmu s podmienkou if_authenticated 
+- Implementácia view pre spracovanie formulára
+  - Logika pre update existujúceho review, ak užívateľ už film hodnotil 
+- Vytvorenie šablóny pre zobrazenie recenzií 
+- Využitie agregačných metód na výpočet celkového hodnotenia filmu (priemer, počet hodnotení)
 
 #### Panel Správcu
-- 
-
+- Úprava administrátorského rozhrania podľa potrieb projektu 
+- Prispôsobenie formulárov pre jednoduchšiu správu dát 
+- Pridanie vlastných filtrov a akcií 
+- Úprava zobrazenia zoznamov a detailov modelov 
+- Vytvorenie vlastných admin views pre špeciálne operácie 
+- Priradenie oprávnení pre rôzne skupiny užívateľov v admin rozhraní
 
