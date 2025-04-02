@@ -1,4 +1,5 @@
 import datetime
+import os
 import requests
 
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
@@ -269,10 +270,33 @@ def search(request):
             creator_surname = Creator.objects.filter(surname__contains=search_string)
             creator_name = Creator.objects.filter(name__contains=search_string)
 
+            # Google search API
+            url = (f"https://www.googleapis.com/customsearch/v1"
+                   f"?key={os.getenv('GOOGLE_API_KEY')}"
+                   f"&cx={os.getenv('GOOGLE_CX')}"
+                   f"&q={search_string}")
+            g_request = requests.get(url)
+            if DEBUG:
+                print(f"g_request: {g_request}")
+            g_json = g_request.json()
+            # print(f"g_json: {g_json}")
+            if DEBUG:
+                for g_result in g_json['items']:
+                    print(g_result['title'])
+                    print(f"\t{g_result['link']}")
+                    print(f"\t{g_result['displayLink']}")
+                    print(f"\t{g_result['snippet']}")
+
             context = {'search': search_string,
                        'movies_title': movies_title,
+                       'movies_title_en': movies_title_en,
+                       'movies_description': movies_description,
+                       'movies_genre': movies_genre,
+                       'movies_country': movies_country,
                        'creator_name': creator_name,
-                       'creator_surname': creator_surname}
+                       'creator_surname': creator_surname,
+                       'creator_biography': creator_biography,
+                       'g_json': g_json}
             return render(request, 'search.html', context)
     return render(request, 'home.html')
 

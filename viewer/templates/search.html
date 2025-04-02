@@ -33,4 +33,14 @@
             Nebolo nič nájdené.
         {% endfor %}
     </ul>
+
+    <h3>Výsledky vyhľdávania na <a href="www.csfd.cz">ČSFD.cz</a></h3>
+    <ul>
+        {% for g_result in g_json.items %}
+            <li>
+                <a href="{{ g_result.link }}">{{ g_result.title }}</a><br>
+                    {{ g_result.snippet }}
+            </li>
+        {% endfor %}
+    </ul>
 {% endblock %}
