@@ -233,3 +233,13 @@ Uložiť a načítať (DUMP/LOAD)
 - Inštalovať `Pillow` package
 - ImageField pre modely, do settings a urls vložiť MEDIA_ROOT, MEDIA_URL
 - Definovať formulár na pridávanie obrázkov s `enctype="multipart/form-data"`
+
+26.03
+
+#### Pagination
+
+
+
+
+
+

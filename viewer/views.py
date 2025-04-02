@@ -41,6 +41,7 @@ class MoviesListView(ListView):
     # Pozor, do template sa posielajú data pod názvom 'object_list'
     # Preto to premenujema na 'movies'
     context_object_name = 'movies'
+    paginate_by = 10
 
 
 class MovieDetailsView(DetailView):
@@ -139,6 +140,7 @@ class CreatorListView(ListView):
     template_name = 'creators.html'
     model = Creator
     context_object_name = 'creators'
+    paginate_by = 5
 
 
 class CreatorDetailsView(DetailView):
