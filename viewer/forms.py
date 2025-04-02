@@ -66,35 +66,42 @@ class MovieModelForm(ModelForm):
                                   widget=NumberInput(attrs={'type': 'date'}),  # Použije sa HTML5 dátumový picker
                                   label="Dátum premiéry")
 
-        # Predefinovať konštruktor
-        def __init__(self, *args, **kwargs):
-            super().__init__(*args, **kwargs)  # zavolá inicializáciu nadriadenej triedy
-            # Pridá CSS triedu 'form-control' pre všetky viditeľné polia (používa sa v Bootstrap)
-            for visible in self.visible_fields():
-                visible.field.widget.attrs['class'] = 'form-control'
+    # Predefinovať konštruktor
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)  # zavolá inicializáciu nadriadenej triedy
+        # Pridá CSS triedu 'form-control' pre všetky viditeľné polia (používa sa v Bootstrap)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'form-control'
 
 
-        # DÔLEŽITÉ -- Formuláre sa najviac oplatí testovať
-        def clean_title_orig(self):
-            # Metódy s prefixom 'clean_' sa volajú pri validácii formulára.
-            initial = self.cleaned_data['title']  # Získa zadanú hodnotu
+    # DÔLEŽITÉ -- Formuláre sa najviac oplatí testovať
+    def clean_title_orig(self):
+        # Metódy s prefixom 'clean_' sa volajú pri validácii formulára.
+        initial = self.cleaned_data['title']  # Získa zadanú hodnotu
+        return initial.capitalize()  # Vráti hodnotu s prvým písmenom veľkým
+
+    def clean_title_en(self):
+        initial = self.cleaned_data['title_en']
+        if initial:  # Ak hodnota existuje (nie je prázdna)
             return initial.capitalize()  # Vráti hodnotu s prvým písmenom veľkým
+        return initial
 
-        def clean_title_en(self):
-            initial = self.cleaned_data['title_en']
-            if initial:  # Ak hodnota existuje (nie je prázdna)
-                return initial.capitalize()  # Vráti hodnotu s prvým písmenom veľkým
-            return initial
-
-        def clean_length(self):
-            # Kontroluje, či je dĺžka filmu kladné číslo.
-            initial = self.cleaned_data['length']
-            if initial and initial <= 0:  # Ak hodnota existuje a je menšia alebo rovná nule
-                raise ValidationError("Dĺžka filmu musí byť kladné číslo.")
-            return initial
+    def clean_length(self):
+        # Kontroluje, či je dĺžka filmu kladné číslo.
+        initial = self.cleaned_data['length']
+        if initial is not None and initial <= 0:  # Ak hodnota existuje a je menšia alebo rovná nule
+            raise ValidationError("Dĺžka filmu musí byť kladné číslo.")
+        return initial
 
 
 class CreatorModelForm(ModelForm):
+    date_of_birth = DateField(required=False,
+                              widget=NumberInput(attrs={'type': 'date'}),
+                              label='Dátum narodenia')
+    date_of_death = DateField(required=False,
+                              widget=NumberInput(attrs={'type': 'date'}),
+                              label='Dátum úmrtia')
+
     class Meta:
         model = Creator
         fields = '__all__'
@@ -108,62 +115,55 @@ class CreatorModelForm(ModelForm):
             'biography': 'Biografia'
         }
 
-        date_of_birth = DateField(required=False,
-                                  widget=NumberInput(attrs={'type': 'date'}),
-                                  label='Dátum narodenia')
-        date_of_death = DateField(required=False,
-                                  widget=NumberInput(attrs={'type': 'date'}),
-                                  label='Dátum úmrtia')
+    def clean_name(self):
+        initial = self.cleaned_data['name']
+        if initial:
+            return initial.capitalize()
+        return initial
 
-        def clean_name(self):
-            initial = self.cleaned_data['name']
-            if initial:
-                return initial.capitalize()
-            return initial
+    def clean_surname(self):
+        initial = self.cleaned_data['surname']
+        if initial:
+            return initial.capitalize()
+        return initial
 
-        def clean_surname(self):
-            initial = self.cleaned_data['surname']
-            if initial:
-                return initial.capitalize()
-            return initial
+    def clean_date_of_birth(self):
+        initial = self.cleaned_data['date_of_birth']
+        if initial and initial > date.today():
+            raise ValidationError('Dátom narodenia nesmie byť v budúcnosti.')
+        return initial
 
-        def clean_date_of_birth(self):
-            initial = self.cleaned_data['date_of_birth']
-            if initial and initial > date.today():
-                return ValidationError('Dátom narodenia nesmie byť v budúcnosti.')
-            return initial
+    def clean_date_of_death(self):
+        initial = self.cleaned_data['date_of_death']
+        if initial and initial > date.today():
+            raise ValidationError('Dátom úmrtia nesmie byť v budúcnosti.')
+        return initial
 
-        def clean_date_of_death(self):
-            initial = self.cleaned_data['date_of_death']
-            if initial and initial > date.today():
-                return ValidationError('Dátom úmrtia nesmie byť v budúcnosti.')
-            return initial
+    def clean_biography(self):
+        initial = self.cleaned_data['biography']
+        # Rozdelenie textu na vety na základe ., !, ?
+        sentences = re.split(r'(?<=[.!?])\s+', initial.strip())
+        # Kapitalizácia každej vety a spojenie späť do textu
+        return ' '.join(sentence.capitalize() for sentence in sentences if sentence)
 
-        def clean_biography(self):
-            initial = self.cleaned_data['biography']
-            # Rozdelenie textu na vety na základe ., !, ?
-            sentences = re.split(r'(?<=[.!?])\s+', initial.strip())
-            # Kapitalizácia každej vety a spojenie späť do textu
-            return ' '.join(sentence.capitalize() for sentence in sentences if sentence)
+    def clean(self):
+        cleaned_data = super().clean()
+        error_message = ''
 
-        def clean(self):
-            cleaned_data = super().clean()
-            error_message = ''
+        initial_name = cleaned_data.get('name', '')
+        initial_surname = cleaned_data.get('surname', '')
+        if not initial_name and not initial_surname:
+            error_message += "Je nutné zadať meno nebo priezvisko (alebo oboje)."
 
-            initial_name = cleaned_data['name']
-            initial_surname = cleaned_data['surname']
-            if not initial_name and not initial_surname:
-                error_message += "Je nutné zadať meno nebo priezvisko (alebo oboje)."
+        initial_date_of_birth = cleaned_data.get('date_of_birth')
+        initial_date_of_death = cleaned_data.get('date_of_death')
+        if initial_date_of_birth and initial_date_of_death and initial_date_of_death <= initial_date_of_birth:
+            error_message += "Dátom úmrtia nesmie byť skôr, ako dátum narodenia."
 
-            initial_date_of_birth = cleaned_data.get('date_of_birth')
-            initial_date_of_death = cleaned_data.get('date_of_death')
-            if initial_date_of_birth and initial_date_of_death and initial_date_of_death <= initial_date_of_birth:
-                error_message += "Dátom úmrtia nesmie byť skôr, ako dátum narodenia."
+        if error_message:
+            raise ValidationError(error_message)
 
-            if error_message:
-                raise ValidationError(error_message)
-
-            return cleaned_data
+        return cleaned_data
 
 
 class GenreModelForm(ModelForm):
@@ -175,9 +175,9 @@ class GenreModelForm(ModelForm):
             'name': 'Názov'
         }
 
-        def clean_name(self):
-            initial = self.cleaned_data['name']
-            return initial.capitalize()
+    def clean_name(self):
+        initial = self.cleaned_data['name']
+        return initial.capitalize()
 
 
 class CountryModelForm(ModelForm):
@@ -190,9 +190,9 @@ class CountryModelForm(ModelForm):
             'flag': 'Vlajka'
         }
 
-        def clean_name(self):
-            initial = self.cleaned_data['name']
-            return initial.capitalize()
+    def clean_name(self):
+        initial = self.cleaned_data['name']
+        return initial.capitalize()
 
 
 class ReviewModelForm(ModelForm):

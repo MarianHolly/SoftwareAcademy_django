@@ -49,12 +49,330 @@
     "fields": {
       "name": "Oldřich",
       "surname": "Lipský",
-      "country": null,
+      "country": 1,
       "date_of_birth": "1924-07-04",
       "date_of_death": "1986-10-19",
-      "biography": "Oldřich Lipský (1924 – 1986) bol český filmový režisér a scenárista známy svojím osobitým humorom a inovatívnym prístupom k žánrom. Preslávil sa najmä komédiami a paródiami, ako Limonádový Joe aneb Koňská opera (1964), ktorá si robila žarty z westernov, Adéla ještě nevečeřela (1977), parodujúca detektívne príbehy, či sci-fi komédia Zabil jsem Einsteina, pánové… (1969). Často spolupracoval s humoristom Jiřím Brdečkom a hercom Milošom Kopeckým. Jeho filmy vynikali hravosťou, vizuálnymi gagmi a inteligentným satirickým podtextom, vďaka čomu si získali popularitu nielen v Česku, ale aj v zahraničí.",
+      "biography": "Český režisér a scenárista, špecializujúci sa na komédie. Mal cit pre absurdný humor a vytvoril množstvo nezabudnuteľných filmových paródií.",
       "created": "2025-03-24T19:51:28.396Z",
-      "updated": "2025-03-24T19:51:28.396Z"
+      "updated": "2025-03-31T09:37:30.698Z"
+    }
+  },
+  {
+    "model": "viewer.creator",
+    "pk": 2,
+    "fields": {
+      "name": "Jiří",
+      "surname": "Sovák",
+      "country": 1,
+      "date_of_birth": "1920-12-27",
+      "date_of_death": "2000-09-06",
+      "biography": "Český herec s typickým ironickým humorom a presne načasovanou komikou. Bol jedným z najvýraznejších československých komediálnych hercov.",
+      "created": "2025-03-24T23:01:09.955Z",
+      "updated": "2025-03-25T09:21:58.798Z"
+    }
+  },
+  {
+    "model": "viewer.creator",
+    "pk": 3,
+    "fields": {
+      "name": "Josef",
+      "surname": "Kemr",
+      "country": 1,
+      "date_of_birth": "1922-06-22",
+      "date_of_death": "1995-01-15",
+      "biography": "Český herec s charakteristickým hlasom a výzorom. Bol známy svojou skromnosťou a pevnými morálnymi zásadami, vďaka čomu často odmietal úlohy, ktoré sa mu nepozdávali.",
+      "created": "2025-03-24T23:02:00.801Z",
+      "updated": "2025-03-25T09:21:02.173Z"
+    }
+  },
+  {
+    "model": "viewer.creator",
+    "pk": 4,
+    "fields": {
+      "name": "Petr",
+      "surname": "Schulhoff",
+      "country": 1,
+      "date_of_birth": "1922-07-10",
+      "date_of_death": "1986-05-04",
+      "biography": "Český filmový režisér a scenárista, ktorý sa venoval predovšetkým komédiám a detektívnym filmom.",
+      "created": "2025-03-24T23:02:43.298Z",
+      "updated": "2025-03-25T09:21:41.946Z"
+    }
+  },
+  {
+    "model": "viewer.creator",
+    "pk": 5,
+    "fields": {
+      "name": "Vladimír",
+      "surname": "Menšík",
+      "country": 1,
+      "date_of_birth": "1929-10-09",
+      "date_of_death": "1988-05-29",
+      "biography": "Mimoriadne talentovaný český herec a rozprávač, známy svojou obrovskou energiou a schopnosťou improvizovať. Bol obľúbený pre svoj ľudový humor a srdečnosť.",
+      "created": "2025-03-24T23:04:06.016Z",
+      "updated": "2025-03-25T09:21:25.622Z"
+    }
+  },
+  {
+    "model": "viewer.creator",
+    "pk": 6,
+    "fields": {
+      "name": "Vlastimil",
+      "surname": "Brodský",
+      "country": 1,
+      "date_of_birth": "1920-12-15",
+      "date_of_death": "2002-04-20",
+      "biography": "Český herec známy svojím jemným humorom a melancholickým výrazom. Patril medzi najvýraznejšie tváre československej kinematografie, divadla a televízie.",
+      "created": "2025-03-24T23:05:04.777Z",
+      "updated": "2025-03-26T10:47:37.426Z"
+    }
+  },
+  {
+    "model": "viewer.creator",
+    "pk": 7,
+    "fields": {
+      "name": "Zdeněk",
+      "surname": "Podskalský st.",
+      "country": 1,
+      "date_of_birth": "1923-02-18",
+      "date_of_death": "1993-10-29",
+      "biography": "Český filmový a televízny režisér, ktorý sa špecializoval na komédie a satiru. Jeho filmy sa vyznačovali inteligentným humorom a spoločenskou kritikou.",
+      "created": "2025-03-25T09:14:54.524Z",
+      "updated": "2025-03-25T09:21:32.928Z"
+    }
+  },
+  {
+    "model": "viewer.creator",
+    "pk": 8,
+    "fields": {
+      "name": "Luděk",
+      "surname": "Sobota",
+      "country": 1,
+      "date_of_birth": "1943-05-27",
+      "date_of_death": null,
+      "biography": "Český herec a komik známy svojím špecifickým humorom a prejavom. Bol jednou z hlavných tvárí československej filmovej komédie 70. a 80. rokov.",
+      "created": "2025-03-25T09:16:50.033Z",
+      "updated": "2025-03-25T09:21:51.327Z"
+    }
+  },
+  {
+    "model": "viewer.creator",
+    "pk": 9,
+    "fields": {
+      "name": "Miloš",
+      "surname": "Kopecký",
+      "country": 1,
+      "date_of_birth": "1922-08-22",
+      "date_of_death": "1996-02-16",
+      "biography": "Populárny český herec s aristokratickým zjavom a ironickým humorom. Bol známy svojím šarmom a eleganciou, ale aj bojom s psychickými problémami.",
+      "created": "2025-03-25T09:17:51.930Z",
+      "updated": "2025-03-25T09:21:08.643Z"
+    }
+  },
+  {
+    "model": "viewer.creator",
+    "pk": 10,
+    "fields": {
+      "name": "Lubomír",
+      "surname": "Lipský",
+      "country": 1,
+      "date_of_birth": "1923-04-19",
+      "date_of_death": "2015-10-02",
+      "biography": "Český herec známy pre svoj komediálny talent a schopnosť stvárniť bláznivé postavy s noblesou. Bol mladším bratom režiséra Oldřicha Lipského. Počas kariéry pôsobil v Divadle ABC, kde sa stal výraznou osobnosťou. Medzi jeho najslávnejšie filmy patrí „Čtyři vraždy stačí, drahoušku“ či „Šest medvědů s Cibulkou“. Jeho mimika a hlasový prejav sa stali ikonickými pre český film.",
+      "created": "2025-03-26T11:20:03.754Z",
+      "updated": "2025-03-26T12:23:34.125Z"
+    }
+  },
+  {
+    "model": "viewer.movie",
+    "pk": 1,
+    "fields": {
+      "title": "Jáchyme, hoď ho do stroje!",
+      "title_en": "Joachim, Put It in the Machine",
+      "length": 95,
+      "description": "Plachý František Koudelka (Luděk Sobota) si nechá poradiť od \"psychotronického\" stroja, ktorý mu určí šťastné a nešťastné dni. Riadi sa podľa neho a nečakane sa mu začne dariť v práci, v láske aj v športe. Film je plný typického českého humoru a absurdných situácií.",
+      "released_date": "1974-03-11",
+      "created": "2025-03-24T22:55:40.420Z",
+      "updated": "2025-03-26T12:25:53.771Z",
+      "genres": [
+        1
+      ],
+      "countries": [
+        1
+      ],
+      "actors": [
+        8
+      ],
+      "directors": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "viewer.movie",
+    "pk": 2,
+    "fields": {
+      "title": "Zajtra to roztočíme, miláčik...!",
+      "title_en": null,
+      "length": 95,
+      "description": "Dve rodiny, Novákovci a Bartáčkovci, žijú v rovnakom dome, ale zatiaľ čo Novákovci sú podnikaví a šmelinári, Bartáčkovci sa im snažia vyrovnať. Ich vzájomná rivalita vedie k sérii bláznivých situácií a satirickému pohľadu na život v socializme.",
+      "released_date": "1976-09-01",
+      "created": "2025-03-24T22:58:36.037Z",
+      "updated": "2025-03-25T09:19:36.467Z",
+      "genres": [
+        2
+      ],
+      "countries": [
+        1
+      ],
+      "actors": [
+        9
+      ],
+      "directors": [
+        4
+      ]
+    }
+  },
+  {
+    "model": "viewer.movie",
+    "pk": 3,
+    "fields": {
+      "title": "Co je doma, to se počítá, pánové...",
+      "title_en": "What I Have I Hold, Gentlemen...!",
+      "length": 82,
+      "description": "Pokračovanie filmu Zítra to roztočíme, drahoušku...! V centre deja sú opäť rodiny Novákovcov a Bartáčkovcov, ktorí sa snažia vyťažiť zo socializmu maximum. Ich vynaliezavosť v oblasti šmeliny a domácich \"kšeftov\" vedie k mnohým absurdným a komickým situáciám.",
+      "released_date": "1980-07-04",
+      "created": "2025-03-24T22:59:09.147Z",
+      "updated": "2025-03-25T09:19:02.069Z",
+      "genres": [
+        2
+      ],
+      "countries": [
+        1
+      ],
+      "actors": [
+        2
+      ],
+      "directors": [
+        4
+      ]
+    }
+  },
+  {
+    "model": "viewer.movie",
+    "pk": 4,
+    "fields": {
+      "title": "„Marečku, podejte mi pero!“",
+      "title_en": "Marecek, Pass Me the Pen!",
+      "length": 96,
+      "description": "Zamestnanec strojárskeho podniku Jiří Kroupa (Jiří Sovák) je nútený absolvovať večernú priemyslovku, aby mohol získať lepšie miesto. Spolu s ďalšími dospelými spolužiakmi sa ocitá v školských laviciach, kde sa snaží držať krok s mladšími študentmi. Kultová komédia plná legendárnych hlášok o absurdite školského systému a pracovného života v socializme.",
+      "released_date": "1976-05-17",
+      "created": "2025-03-24T23:00:02.998Z",
+      "updated": "2025-03-25T09:19:50.054Z",
+      "genres": [
+        2
+      ],
+      "countries": [
+        1
+      ],
+      "actors": [
+        3,
+        2
+      ],
+      "directors": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "viewer.movie",
+    "pk": 5,
+    "fields": {
+      "title": "Světáci",
+      "title_en": "Men About Town",
+      "length": 99,
+      "description": "Traja vidiecki maliari fasád (Brodský, Sovák, Libíček) sa rozhodnú stať sa \"svetákmi\" a užiť si luxusný nočný život v Prahe. Absolvujú kurz spoločenského správania, no stretnutie s troma \"dámami\" (Jirásková, Bohdalová, Janžurová) v luxusnej reštaurácii vedie k sérii komických nedorozumení a odhalení.",
+      "released_date": "1969-11-21",
+      "created": "2025-03-24T23:06:51.271Z",
+      "updated": "2025-03-26T11:24:35.732Z",
+      "genres": [
+        1,
+        2
+      ],
+      "countries": [
+        1
+      ],
+      "actors": [
+        6,
+        5,
+        2
+      ],
+      "directors": [
+        7
+      ]
+    }
+  },
+  {
+    "model": "viewer.movie",
+    "pk": 7,
+    "fields": {
+      "title": "Čtyři vraždy stačí, drahoušku",
+      "title_en": "Four Murders Are Enough, Darling",
+      "length": 95,
+      "description": "V tomto bláznivom komediálnom príbehu sa nenápadný učiteľ angličtiny nedopatrením zapletie do série vražedných nedorozumení, ktoré sa postupne zamotávajú a naberajú absurdné rozmery. Film využíva typický český humor, gagy a situačnú komiku. Vďaka paródiám na detektívne klišé sa stal kultovou klasikou. Svojou štylizáciou a hereckým obsadením patrí medzi vrcholy tvorby Oldřicha Lipského. Film vznikol na motívy poľského románu a odohráva sa v nešpecifikovanom mestečku.",
+      "released_date": "1970-12-18",
+      "created": "2025-03-26T11:18:23.514Z",
+      "updated": "2025-03-26T12:25:24.991Z",
+      "genres": [
+        4,
+        3
+      ],
+      "countries": [],
+      "actors": [
+        6,
+        10,
+        2
+      ],
+      "directors": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "viewer.movie",
+    "pk": 8,
+    "fields": {
+      "title": "Jak utopit Dr. Mráčka aneb Konec vodníků v Čechách",
+      "title_en": "How to Drown Dr. Mráček or The End of Water Sprites in Bohemia",
+      "length": 96,
+      "description": "Komédia o vodníckej rodine, ktorá sa snaží zachrániť svoj dom pred vysťahovaním a zároveň zabrániť svojmu odhaleniu. Vodníci žijú inkognito medzi ľuďmi, no modernizácia im ohrozuje existenciu. Príbeh je plný čarovnej atmosféry, poetiky a typického českého humoru. Film naráža aj na ekologické a spoločenské problémy doby. Postava Dr. Mráčka symbolizuje stret dvoch svetov – racionálneho a nadprirodzeného.",
+      "released_date": "1974-01-01",
+      "created": "2025-03-26T11:19:32.266Z",
+      "updated": "2025-03-26T11:24:43.082Z",
+      "genres": [
+        4,
+        2
+      ],
+      "countries": [
+        1
+      ],
+      "actors": [],
+      "directors": [
+        9
+      ]
+    }
+  },
+  {
+    "model": "viewer.image",
+    "pk": 2,
+    "fields": {
+      "image": "images/porad_booklet_ca76845f3c952b02103519e4661aea0c-960.jpg",
+      "movie": 2,
+      "description": "",
+      "creators": [
+        9,
+        4
+      ]
     }
   }
 ]

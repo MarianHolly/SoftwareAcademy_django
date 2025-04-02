@@ -4,6 +4,7 @@ from django.forms.fields import DateField, DateInput, CharField, Textarea
 from django.forms.widgets import PasswordInput
 from .models import Profile
 
+
 # Registrácia nového užívateľa
 class SignUpForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):

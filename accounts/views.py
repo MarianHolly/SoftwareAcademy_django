@@ -15,7 +15,7 @@ class SubmittableLoginView(LoginView):
 class SignUpView(CreateView):
     template_name = 'form.html'
     form_class = SignUpForm
-    success_url = reverse_lazy('login')
+    success_url = reverse_lazy('home')
 
 
 def user_logout(request):

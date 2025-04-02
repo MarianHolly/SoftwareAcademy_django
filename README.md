@@ -45,25 +45,25 @@
   - [x] directors (n:m -> Creator)
   - [x] description (String)
   - [x] released_date (Date)
-  - [ ] rating (Float)
-  - [ ] images (1:n -> Image)
+  - [x] rating (Float)
+  - [x] images (1:n -> Image)
   - [ ] video_url (String)
 
-- [ ] Review
-  - [ ] reviewer (-> User) 
-  - [ ] movie (-> Movie)
-  - [ ] rating (Integer, 1-5 hvězdiček)
-  - [ ] comment (String) 
-  - [ ] created (DateTime)
-  - [ ] updated (DateTime) 
+- [x] Review
+  - [x] reviewer (-> User) 
+  - [x] movie (-> Movie)
+  - [x] rating (Integer, 1-5 hvězdiček)
+  - [x] comment (String) 
+  - [x] created (DateTime)
+  - [x] updated (DateTime) 
 
-- [ ] User (default from Django)
+- [x] User (default from Django)
 
-- [ ] Image
+- [x] Image
   - [x] image (file)
   - [x] movie (-> Movie)
-  - [ ] actors (n:m -> Creator)
-  - [ ] description
+  - [x] actors (n:m -> Creator)
+  - [x] description
 
 -----
 
@@ -238,8 +238,14 @@ Uložiť a načítať (DUMP/LOAD)
 
 #### Pagination
 
+#### Testovanie
+- `tests.py` subor na ukladanie testov
+- viacere testovacie subory musia začínať s `test*`
+- tri typy testov: modely, formuláre, užívateľ
 
-
-
+#### Testovanie GUI
+- Inštalovanie `selenium`
+- Počas testovania musí byť sppustený server.
+- Pozor, už pracujeme s reaálnymi datami v databáze.
 
 
