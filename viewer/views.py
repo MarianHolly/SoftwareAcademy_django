@@ -1,16 +1,18 @@
+import datetime
+import requests
+
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.db.models import Avg
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-
 from django.views import View
 from django.views.generic import TemplateView, ListView, DetailView, FormView, UpdateView, CreateView, DeleteView
 
+from accounts.models import Profile
 from viewer.forms import MovieForm, MovieModelForm, CreatorModelForm, GenreModelForm, CountryModelForm, ReviewModelForm, \
     ImageModelForm
 from viewer.mixins import StaffRequiredMixin
 from viewer.models import Creator, Movie, Genre, Country, Review, Image
-from accounts.models import Profile
 
 
 # Create your views here.
@@ -345,3 +347,16 @@ class ImageDeleteView(DeleteView):
     success_url = reverse_lazy('images')
 
 
+def name_day(request):
+    month = datetime.date.today().month
+    if month < 10:
+        month = f"0{month}"
+    day = datetime.date.today().day
+    if day < 10:
+        day = f"0{day}"
+    url = f"https://svatky.adresa.info/json?date={day}{month}"
+    result_request = requests.get(url)
+    result_json = result_request.json()
+    name = result_json[0]['name']
+    context = {'name': name}
+    return render(request, 'nameday.html', context)

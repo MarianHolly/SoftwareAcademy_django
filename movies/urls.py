@@ -55,7 +55,10 @@ urlpatterns = [
     # Preddefinovať akúkoľvek cestu
     path('accounts/login/', SubmittableLoginView.as_view(), name='login'),
     path('accounts/logout/', user_logout, name='logout'),
-    path('accounts/signup/', SignUpView.as_view(), name='signup'),
     # DJANGO provides urls
-    path('accounts/', include('django.contrib.auth.urls'))
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/signup/', SignUpView.as_view(), name='signup'),
+
+    # API
+    path('nameday/', name_day, name='nameday'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

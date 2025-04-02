@@ -16,6 +16,16 @@
                 <a class="nav-item nav-link active" href="{% url 'countries' %}">Krajiny</a>
                 <a class="nav-item nav-link active" href="{% url 'images' %}">Obrázky</a>
             </div>
+
+            <div class="navbar.nav">
+                <div class="nav-item dropdown">
+                    <a class="nav-link active dropdown-toggle" href="#" data-toggle="dropdown">API</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="{% url 'nameday' %}">Sviatok</a>
+                    </div>
+                </div>
+            </div>
+
             <div class="navbar-nav ml-auto">
                 <div class="search-div">
                     <form method="post" action="/search/">
