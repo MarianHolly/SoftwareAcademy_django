@@ -83,6 +83,15 @@
                 </div>
             </div>
 
+            <hr>
+            {% if movie in profile.watchlist.all %}
+                <a href="{% url 'watchlist' movie.id %}">Odobrať z watchlistu</a>
+            {% else %}
+                <a href="{% url 'watchlist' movie.id %}">Pridať na watchlist</a>
+            {% endif %}
+            <hr>
+
+
             {% if movie.description %}
             <div class="movie-description mb-4">
                 <h3>Obsah</h3>

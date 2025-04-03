@@ -4,7 +4,7 @@ from django.contrib import admin
 from django.contrib.auth.views import LoginView
 from django.urls import path, include
 
-from accounts.views import SubmittableLoginView, user_logout, SignUpView
+from accounts.views import *
 from viewer.views import *
 
 urlpatterns = [
@@ -41,6 +41,7 @@ urlpatterns = [
 
     path('review/delete/<int:pk>/', ReviewDeleteView.as_view(), name='review_delete'),
     path('search/', search, name='search'),
+    path('watchlist/<int:pk>/', watchlist, name='watchlist'),
 
     path('images/', ImageListView.as_view(), name='images'),
     path('image/<int:pk>/', ImageDetailView.as_view(), name='image'),
@@ -58,6 +59,7 @@ urlpatterns = [
     # DJANGO provides urls
     path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/signup/', SignUpView.as_view(), name='signup'),
+    path('profile/<int:pk>/', ProfileDetailView.as_view(), name='profile'),
 
     # API
     path('nameday/', name_day, name='nameday'),

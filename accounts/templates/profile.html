@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Profil: {{ profile.user.username }}
+{% endblock %}
+
+{% block content %}
+    <h1>Profil užívateľa {{ profile.user.username }}</h1>
+    <p><strong>Meno:</strong> {{ profile.user.first_name }}</p>
+    <p><strong>Priezvisko:</strong> {{ profile.user.last_name }}</p>
+    <p><strong>Biografia:</strong> {{ profile.biography }}</p>
+    <p><strong>Watchlist:</strong>
+    <ul>
+        {% for movie in profile.watchlist.all %}
+            <li><a href="{% url 'movie' movie.id %}">{{ movie.title }}</a></li>
+        {% empty %}
+            Žiaden film na zozname.
+        {% endfor %}
+    </ul>
+{% endblock %}

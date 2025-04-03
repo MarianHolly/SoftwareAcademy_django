@@ -56,6 +56,8 @@ class MovieDetailsView(DetailView):
 def movie(request, pk):
     if Movie.objects.filter(id=pk).exists():
         movie_ = Movie.objects.get(id=pk)
+        profile_ = Profile.objects.get(user=request.user)
+
         if request.method == 'POST':
             # spracovanie formularu
             rating = request.POST.get('rating')
@@ -63,14 +65,14 @@ def movie(request, pk):
 
             # ak od užívatela máme review - tak ho aktualizujeme
             if Review.objects.filter(movie=movie_, reviewer=Profile.objects.get(user=request.user)).exists():
-                user_review = Review.objects.get(movie=movie_, reviewer=Profile.objects.get(user=request.user))
+                user_review = Review.objects.get(movie=movie_, reviewer=profile_)
                 user_review.rating = rating
                 user_review.comment = comment
                 user_review.save()
             else:
                 Review.objects.create(
                     movie=movie_,
-                    reviewer=Profile.objects.get(user=request.user),
+                    reviewer=profile_,
                     rating=rating,
                     comment=comment)
 
@@ -80,7 +82,8 @@ def movie(request, pk):
         context = {'movie': movie_,
                    'review_form': ReviewModelForm,
                    'rating_avg': rating_avg,
-                   'rating_count': rating_count}
+                   'rating_count': rating_count,
+                   'profile': profile_}
         return render(request, 'movie.html', context)
     return redirect('movies')
 
@@ -384,3 +387,16 @@ def name_day(request):
     name = result_json[0]['name']
     context = {'name': name}
     return render(request, 'nameday.html', context)
+
+
+def watchlist(request, pk):
+    profile_ = Profile.objects.get(user=request.user)
+    movie_ = Movie.objects.get(id=pk)
+
+    if movie_ in profile_.watchlist.all():
+        profile_.watchlist.remove(movie_)
+    else:
+        profile_.watchlist.add(movie_)
+
+    return redirect('movie', pk)
+

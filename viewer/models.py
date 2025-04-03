@@ -81,6 +81,7 @@ class Movie(Model):
     released_date = DateField(null=True, blank=True)
     created = DateTimeField(auto_now_add=True)
     updated = DateTimeField(auto_now=True)
+    in_watchlist = ManyToManyField(Profile, blank=True, related_name='watchlist')
 
     class Meta:
         ordering = ['title', 'released_date']

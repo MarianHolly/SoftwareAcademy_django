@@ -28,7 +28,7 @@ class MovieModelForm(ModelForm):
         model = Movie
         fields = '__all__'
         # fields = [ 'title', 'description']
-        # exclude = ['released_date']
+        exclude = ['in_watchlist']
 
         # Predefinovať popisy
         labels = {

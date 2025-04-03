@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
-from django.db.models import OneToOneField, CASCADE, DateField, Model, TextField
+from django.db.models import OneToOneField, CASCADE, DateField, Model, TextField, ManyToManyField
 
 
 # Create your models here.
