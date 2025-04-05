@@ -65,6 +65,16 @@
   - [x] actors (n:m -> Creator)
   - [x] description
 
+- [ ] Series
+  - [ ] title (String)
+  - [ ] title_en
+  - [ ] description
+  - [ ] episodes (-> Episode)
+
+- [ ] Episode (Movie)
+  - [ ] season (Int)
+  - [ ] episode (Int)
+
 -----
 
 ### Základy Djanga
