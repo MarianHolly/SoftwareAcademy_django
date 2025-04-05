@@ -18,7 +18,12 @@ from viewer.models import Creator, Movie, Genre, Country, Review, Image
 
 # Create your views here.
 def home(request):
-    return render(request, 'home.html')
+    context = {
+        'latest_movies': Movie.objects.all().order_by('-created')[:3],
+        'latest_creators': Creator.objects.all().order_by('-created')[:3],
+        'latest_reviews': Review.objects.all().order_by('-created')[:3],
+    }
+    return render(request, 'home.html', context)
 
 
 #todo: ======================== MOVIES ========================

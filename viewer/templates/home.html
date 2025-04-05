@@ -5,5 +5,86 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Vitajte v našej filmovej databáze.</h1>
+    <div class="container-fluid bg-dark text-white py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h1 class="display-4">Vitajte v našej filmovej databáze</h1>
+                    <p class="lead">Objavte bohatstvo českej kinematografie</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container py-5">
+        <!-- Latest Movies -->
+        <section class="mb-5">
+            <h2 class="mb-4 border-bottom pb-2">Naposledy pridané filmy</h2>
+            <div class="row">
+                {% if latest_movies %}
+                    {% for movie in latest_movies %}
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ movie.title }}</h5>
+                                    <a href="{% url 'movie' movie.id %}" class="btn btn-primary">Viacej informácií</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="col">
+                        <p>Zatiaľ neboli pridané žiadne filmy.</p>
+                    </div>
+                {% endif %}
+            </div>
+        </section>
+
+        <section class="mb-5">
+            <h2 class="mb-4 border-bottom pb-2">Naposledy pridaní tvorcovia</h2>
+            <div class="row">
+                {% if latest_creators %}
+                    {% for creator in latest_creators %}
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ creator.name }} {{ creator.surname }}</h5>
+                                    <a href="{% url 'creator' creator.id %}" class="btn btn-primary">Viacej informácií</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="col">
+                        <p>Zatiaľ nebol nikto pridaný.</p>
+                    </div>
+                {% endif %}
+            </div>
+        </section>
+
+        <section class="mb-5">
+            <h2 class="mb-4 border-bottom pb-2">Naposledy pridané recenzie.</h2>
+            <div class="row">
+                {% if latest_reviews %}
+                    {% for review in latest_reviews %}
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <p class="">{{ review.comment }}</p>
+                                </div>
+                                <div class="card-footer">
+                                    <p class="font-italic">komentár od <strong>{{ review.reviewer }}</strong>
+                                        <br>na film <strong>{{ review.movie }}</strong></p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="col">
+                        <p>Žiadna recenzia nebola zaznamenaná.</p>
+                    </div>
+                {% endif %}
+            </div>
+        </section>
+    </div>
 {% endblock %}

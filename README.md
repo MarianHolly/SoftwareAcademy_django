@@ -248,4 +248,13 @@ Uložiť a načítať (DUMP/LOAD)
 - Počas testovania musí byť sppustený server.
 - Pozor, už pracujeme s reaálnymi datami v databáze.
 
+30.03
 
+#### Watchlist
+
+01.04
+
+#### API Application
+- `pip install djangorestframework`
+- `setting.py` registruj `rest_framework` do `INSTALLED_APPS`
+- Definuj serializer pre prevedenie objektu na JSON formát

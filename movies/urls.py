@@ -5,6 +5,7 @@ from django.contrib.auth.views import LoginView
 from django.urls import path, include
 
 from accounts.views import *
+from api.views import *
 from viewer.views import *
 
 urlpatterns = [
@@ -63,4 +64,9 @@ urlpatterns = [
 
     # API
     path('nameday/', name_day, name='nameday'),
+    path('api/movies/', Movies.as_view(), name='api_movies'),
+    path('api/movie/<int:pk>/', MovieDetail.as_view(), name='api_movie'),
+    path('api/creators/', Creators.as_view(), name='api_creators'),
+    path('api/creator/<int:pk>/', CreatorDetail.as_view(), name='api_creator'),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
