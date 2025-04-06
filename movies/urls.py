@@ -22,6 +22,11 @@ urlpatterns = [
     path('movie/delete/<int:pk>/', MovieDeleteView.as_view(), name='movie_delete'),
     path('movie/filter/', movie_filter, name='movie_filter'),
 
+    path('series/', SeriesListView.as_view(), name='series'),
+    path('series/<int:pk>/', SeriesDetailView.as_view(), name='series_detail'),
+    path('episode/<int:pk>/', EpisodeDetailView.as_view(), name='episode'),
+    path('episode/watchlist/<int:pk>/', watchlist_episode, name='watchlist_episode'),
+
     path('creators/', CreatorListView.as_view(), name='creators'),
     path('creator/<int:pk>/', CreatorDetailsView.as_view(), name='creator'),
     path('creator/create/', CreatorCreateView.as_view(), name='creator_create'),
@@ -42,6 +47,7 @@ urlpatterns = [
 
     path('review/delete/<int:pk>/', ReviewDeleteView.as_view(), name='review_delete'),
     path('search/', search, name='search'),
+
     path('watchlist/<int:pk>/', watchlist, name='watchlist'),
 
     path('images/', ImageListView.as_view(), name='images'),

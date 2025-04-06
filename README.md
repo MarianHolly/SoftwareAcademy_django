@@ -69,11 +69,11 @@
   - [ ] title (String)
   - [ ] title_en
   - [ ] description
-  - [ ] episodes (-> Episode)
 
 - [ ] Episode (Movie)
   - [ ] season (Int)
   - [ ] episode (Int)
+  - [ ] episodes (-> Series)
 
 -----
 
