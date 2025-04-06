@@ -4,16 +4,18 @@ import requests
 
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.db.models import Avg
+from django.db.models.expressions import result
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import TemplateView, ListView, DetailView, FormView, UpdateView, CreateView, DeleteView
 
 from accounts.models import Profile
+from movies.settings import DEBUG
 from viewer.forms import MovieForm, MovieModelForm, CreatorModelForm, GenreModelForm, CountryModelForm, ReviewModelForm, \
     ImageModelForm
 from viewer.mixins import StaffRequiredMixin
-from viewer.models import Creator, Movie, Genre, Country, Review, Image
+from viewer.models import Creator, Movie, Genre, Country, Review, Image, Series, SeriesEpisode
 
 
 # Create your views here.
@@ -49,7 +51,11 @@ class MoviesListView(ListView):
     # Pozor, do template sa posielajú data pod názvom 'object_list'
     # Preto to premenujema na 'movies'
     context_object_name = 'movies'
-    paginate_by = 10
+    paginate_by = 20
+
+    def get_queryset(self):
+        movies_ = Movie.objects.exclude(id__in=SeriesEpisode.objects.values_list('id', flat=True))
+        return movies_
 
 
 class MovieDetailsView(DetailView):
@@ -61,7 +67,9 @@ class MovieDetailsView(DetailView):
 def movie(request, pk):
     if Movie.objects.filter(id=pk).exists():
         movie_ = Movie.objects.get(id=pk)
-        profile_ = Profile.objects.get(user=request.user)
+        profile_ = None
+        if request.user.is_authenticated:
+            profile_ = Profile.objects.get(user=request.user)
 
         if request.method == 'POST':
             # spracovanie formularu
@@ -405,3 +413,50 @@ def watchlist(request, pk):
 
     return redirect('movie', pk)
 
+
+def watchlist_episode(request, pk):
+    profile_ = Profile.objects.get(user=request.user)
+    movie_ = Movie.objects.get(id=pk)
+
+    if movie_ in profile_.watchlist.all():
+        profile_.watchlist.remove(movie_)
+    else:
+        profile_.watchlist.add(movie_)
+
+    return redirect('episode', pk)
+
+
+#todo: ======================== SERIES ========================
+
+
+class SeriesListView(ListView):
+    template_name = 'series.html'
+    model = Series
+    context_object_name = 'series'
+
+
+class SeriesDetailView(DetailView):
+    template_name = 'series_detail.html'
+    model = Series
+    context_object_name = 'series'
+
+
+
+
+class EpisodeDetailView(DetailView):
+    template_name = 'episode.html'
+    model = SeriesEpisode
+    context_object_name = 'movie'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        profile_ = None
+        is_in_watchlist = False
+        if self.request.user.is_authenticated:
+            profile_ = Profile.objects.get(user=self.request.user)
+            is_in_watchlist = profile_ in context['movie'].in_watchlist.all()
+        context['profile'] = profile_
+        context['is_in_watchlist'] = is_in_watchlist
+        if DEBUG:
+            print(f'context: {context}')
+        return context
