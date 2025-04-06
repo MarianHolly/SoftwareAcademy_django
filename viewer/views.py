@@ -441,6 +441,8 @@ class SeriesDetailView(DetailView):
     context_object_name = 'series'
 
 
+
+
 class EpisodeDetailView(DetailView):
     template_name = 'episode.html'
     model = SeriesEpisode
