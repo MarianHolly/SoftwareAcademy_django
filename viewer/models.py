@@ -141,3 +141,35 @@ class Image(Model):
 
     def __str__(self):
         return f"Image: {self.image}"
+
+
+class SeriesEpisode(Movie):
+    season = IntegerField(null=False, blank=False)
+    episode = IntegerField(null=False, blank=False)
+    series = ForeignKey("Series", on_delete=CASCADE, null=False, blank=False, related_name='episodes')
+
+    class Meta:
+        ordering = ['series__title', 'season', 'episode']
+        verbose_name_plural = "Seriálové epizódy"
+
+    def __repr__(self):
+        return f"Episode(title={self.title}, season={self.season}, episode={self.episode})"
+
+    def __str__(self):
+        return f"{self.series.title} - {self.title} - S{self.season:02d}E{self.episode:02d}"
+
+
+class Series(Model):
+    title = CharField(max_length=64, null=False, blank=False)
+    title_en = CharField(max_length=64, null=True, blank=True)
+    description = TextField(null=True, blank=True)
+
+    class Meta:
+        ordering = ['title']
+        verbose_name_plural = "Seriály"
+
+    def __repr__(self):
+        return f"Series(title={self.title})"
+
+    def __str__(self):
+        return f"{self.title}"

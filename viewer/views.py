@@ -61,14 +61,12 @@ class MovieDetailsView(DetailView):
 def movie(request, pk):
     if Movie.objects.filter(id=pk).exists():
         movie_ = Movie.objects.get(id=pk)
-        profile_ = None
+        profile_ = Profile.objects.get(user=request.user)
 
         if request.method == 'POST':
             # spracovanie formularu
             rating = request.POST.get('rating')
             comment = request.POST.get('comment')
-
-            profile_ = Profile.objects.get(user=request.user)
 
             # ak od užívatela máme review - tak ho aktualizujeme
             if Review.objects.filter(movie=movie_, reviewer=Profile.objects.get(user=request.user)).exists():

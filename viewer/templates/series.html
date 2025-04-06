@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Zoznam seriálov
+{% endblock %}
+
+{% block content %}
+    <h1>Seriály</h1>
+    <ul>
+        {% for serie in series %}
+            <li>
+                <a href="{% url 'series_detail' serie.id %}">{{ serie }}</a>
+            </li>
+        {% empty %}
+            V databáze nie je žiaden seriál
+        {% endfor %}
+    </ul>
+{% endblock %}
