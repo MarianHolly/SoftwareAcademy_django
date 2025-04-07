@@ -14,7 +14,7 @@ from django.views.generic import TemplateView, ListView, DetailView, FormView, U
 from accounts.models import Profile
 from movies.settings import DEBUG
 from viewer.forms import MovieForm, MovieModelForm, CreatorModelForm, GenreModelForm, CountryModelForm, ReviewModelForm, \
-    ImageModelForm, SeriesModelForm
+    ImageModelForm, SeriesModelForm, EpisodeModelForm
 from viewer.mixins import StaffRequiredMixin
 from viewer.models import Creator, Movie, Genre, Country, Review, Image, Series, SeriesEpisode
 
@@ -494,11 +494,34 @@ class EpisodeDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         profile_ = None
         is_in_watchlist = False
+
         if self.request.user.is_authenticated:
             profile_ = Profile.objects.get(user=self.request.user)
             is_in_watchlist = profile_ in context['movie'].in_watchlist.all()
         context['profile'] = profile_
         context['is_in_watchlist'] = is_in_watchlist
+
         if DEBUG:
             print(f'context: {context}')
         return context
+
+
+class EpisodeCreateView(PermissionRequiredMixin, CreateView):
+    template_name = 'form.html'
+    form_class = EpisodeModelForm
+    success_url = reverse_lazy('series')
+    permission_required = 'viewer.add_episode'
+
+
+class EpisodeUpdateView(PermissionRequiredMixin, UpdateView):
+    template_name = 'form.html'
+    form_class = EpisodeModelForm
+    model = SeriesEpisode
+    success_url = reverse_lazy('series')
+    permission_required = 'viewer.change_episode'
+
+
+class EpisodeDeleteView(PermissionRequiredMixin, DeleteView):
+    template_name = 'form.html'
+    model = SeriesEpisode
+    success_url = reverse_lazy('series')

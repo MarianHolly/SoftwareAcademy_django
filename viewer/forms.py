@@ -2,9 +2,10 @@ import re
 from datetime import date
 
 from django.core.exceptions import ValidationError
+from django.db.transaction import atomic
 from django.forms import Form, CharField, ModelChoiceField, IntegerField, Textarea, DateField, ModelForm, TextInput, NumberInput
 
-from viewer.models import Country, Genre, Creator, Movie, Review, Image, Series
+from viewer.models import Country, Genre, Creator, Movie, Review, Image, Series, SeriesEpisode
 
 
 # Prvý prístup
@@ -224,3 +225,37 @@ class SeriesModelForm(ModelForm):
             'title_en': 'Anglický názov',
             'description': 'Popis'
         }
+
+
+class EpisodeModelForm(MovieModelForm):
+
+    series = ModelChoiceField(queryset=Series.objects.all(), required=True, label='Serial')
+    season = IntegerField(min_value=1, required=False, label='Sezona')
+    episode = IntegerField(min_value=1, required=False, label='Epizoda')
+
+    def __init__(self, *args, **kwargs):
+        MovieModelForm.__init__(self, *args, **kwargs)
+
+    @atomic
+    def save(self, commit=True):
+        self.instance.is_active = True
+
+        series_episode = SeriesEpisode(
+            title=self.cleaned_data['title'],
+            title_en=self.cleaned_data['title_en'],
+            # genres=self.cleaned_data['genres'],
+            # countries=self.cleaned_data['countries'],
+            length=self.cleaned_data['length'],
+            # actors=self.cleaned_data['actors'],
+            # directors=self.cleaned_data['directors'],
+            description=self.cleaned_data['description'],
+            released_date=self.cleaned_data['released_date'],
+            series=self.cleaned_data['series'],
+            season=self.cleaned_data['season'],
+            episode=self.cleaned_data['episode']
+        )
+
+        if commit:
+            series_episode.save()
+        return series_episode
+
