@@ -4,7 +4,7 @@ from datetime import date
 from django.core.exceptions import ValidationError
 from django.forms import Form, CharField, ModelChoiceField, IntegerField, Textarea, DateField, ModelForm, TextInput, NumberInput
 
-from viewer.models import Country, Genre, Creator, Movie, Review, Image
+from viewer.models import Country, Genre, Creator, Movie, Review, Image, Series
 
 
 # Prvý prístup
@@ -212,3 +212,15 @@ class ImageModelForm(ModelForm):
     class Meta:
         model = Image
         fields = '__all__'
+
+
+class SeriesModelForm(ModelForm):
+    class Meta:
+        model = Series
+        fields = '__all__'
+
+        labels = {
+            'title': 'Názov',
+            'title_en': 'Anglický názov',
+            'description': 'Popis'
+        }

@@ -6,6 +6,9 @@
 
 {% block content %}
     <h1>Seriály</h1>
+    {% if perms.viewer.add_series %}
+        <a href="{% url 'series_create' %}" class="btn btn-primary">Pridať nový seriál</a>
+    {% endif %}
     <ul>
         {% for serie in series %}
             <li>

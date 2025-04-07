@@ -14,7 +14,7 @@ from django.views.generic import TemplateView, ListView, DetailView, FormView, U
 from accounts.models import Profile
 from movies.settings import DEBUG
 from viewer.forms import MovieForm, MovieModelForm, CreatorModelForm, GenreModelForm, CountryModelForm, ReviewModelForm, \
-    ImageModelForm
+    ImageModelForm, SeriesModelForm
 from viewer.mixins import StaffRequiredMixin
 from viewer.models import Creator, Movie, Genre, Country, Review, Image, Series, SeriesEpisode
 
@@ -462,6 +462,21 @@ class SeriesDetailView(DetailView):
     template_name = 'series_detail.html'
     model = Series
     context_object_name = 'series'
+
+
+class SeriesCreateView(PermissionRequiredMixin, CreateView):
+    template_name = 'form.html'
+    form_class = SeriesModelForm
+    success_url = reverse_lazy('series')
+    permission_required = 'viewer.add_series'
+
+
+class SeriesUpdateView(PermissionRequiredMixin, UpdateView):
+    pass
+
+
+class SeriesDeleteView(PermissionRequiredMixin, DeleteView):
+    pass
 
 
 class EpisodeDetailView(DetailView):
