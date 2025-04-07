@@ -492,18 +492,48 @@ class EpisodeDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        profile_ = None
+        profile = None
         is_in_watchlist = False
 
         if self.request.user.is_authenticated:
             profile_ = Profile.objects.get(user=self.request.user)
             is_in_watchlist = profile_ in context['movie'].in_watchlist.all()
-        context['profile'] = profile_
-        context['is_in_watchlist'] = is_in_watchlist
+
+        context.update({
+            'profile': profile,
+            'is_in_watchlist': is_in_watchlist,
+            'review_form': ReviewModelForm(),
+        })
 
         if DEBUG:
             print(f'context: {context}')
         return context
+
+    def post(self, request, *args, **kwargs):
+        movie = self.get_object()
+
+        if not request.user.is_authenticated:
+            return redirect('login')
+
+        profile = Profile.objects.filter(user=request.user).first()
+        rating = request.POST.get('rating')
+        comment = request.POST.get('comment')
+
+        review_qs = Review.objects.filter(movie=movie, reviewer=profile)
+        if review_qs.exists():
+            user_review = review_qs.first()
+            user_review.rating = rating
+            user_review.comment = comment
+            user_review.save()
+        else:
+            Review.objects.create(
+                movie=movie,
+                reviewer=profile,
+                rating=rating,
+                comment=comment
+            )
+
+        return self.get(request, *args, **kwargs)
 
 
 class EpisodeCreateView(PermissionRequiredMixin, CreateView):
