@@ -25,6 +25,8 @@ urlpatterns = [
     path('series/', SeriesListView.as_view(), name='series'),
     path('series/<int:pk>/', SeriesDetailView.as_view(), name='series_detail'),
     path('series/create/', SeriesCreateView.as_view(), name='series_create'),
+    path('series/update/<int:pk>/', SeriesUpdateView.as_view(), name='series_update'),
+    path('series/delete/<int:pk>/', SeriesDeleteView.as_view(), name='series_delete'),
 
     path('episode/<int:pk>/', EpisodeDetailView.as_view(), name='episode'),
     path('episode/watchlist/<int:pk>/', watchlist_episode, name='watchlist_episode'),

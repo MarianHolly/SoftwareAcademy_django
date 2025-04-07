@@ -3,29 +3,58 @@
 {% block title %}{{ series.title }}{% endblock %}
 
 {% block content %}
-    <div class="container movie-details my-5">
-        <div class="row">
-            <div class="col-md-8 offset-md-2">
-                <h1 class="display-4 mb-4">{{ series.title }}</h1>
-            </div>
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10 col-lg-8">
+            <!-- Series Title -->
+            <h1 class="display-4 text-center mb-4">{{ series.title }}</h1>
+
+            <!-- Series Description -->
             {% if series.description %}
-                <div class="movie-description mb-4">
-                    <h3>Obsah</h3>
-                    <p>{{ series.description }}</p>
+                <div class="mb-4">
+                    <h3 class="h5">Obsah</h3>
+                    <p class="text-muted">{{ series.description }}</p>
                 </div>
             {% endif %}
-            <hr>
-            <div class="row">
-                <div class="movie-description mb-4">
-                    <ul>
+
+            <!-- Episodes List -->
+            <div class="mb-4">
+                <h4 class="h5">Epizódy</h4>
+                {% if series.episodes.all %}
+                    <ul class="list-group">
                         {% for episode in series.episodes.all %}
-                            <li>
-                                <a href="{% url 'episode' episode.id %}">{{ episode }}</a>
+                            <li class="list-group-item d-flex justify-content-between align-items-center m-1">
+                                <a href="{% url 'episode' episode.id %}" class="text-decoration-none">
+                                    {{ episode.title|default:episode }}
+                                </a>
+                                <small class="text-muted">{{ episode.air_date|date:"d.m.Y" }}</small>
                             </li>
                         {% endfor %}
                     </ul>
-                </div>
+                {% else %}
+                    <p class="text-muted">Zatiaľ žiadne epizódy.</p>
+                {% endif %}
+            </div>
+
+            <div class="d-flex flex-row justify-content-center">
+                <!-- Edit Button -->
+                {% if perms.viewer.change_series %}
+                    <div class="text-end m-2">
+                        <a href="{% url 'series_update' series.id %}" class="btn btn-primary">
+                            Aktualizovať
+                        </a>
+                    </div>
+                {% endif %}
+                <!-- Delete Button -->
+                {% if perms.viewer.delete_series %}
+                    <div class="text-end m-2">
+                        <a href="{% url 'series_delete' series.id %}" class="btn btn-danger">
+                            Vymazať
+                        </a>
+                    </div>
+                {% endif %}
             </div>
         </div>
     </div>
+</div>
 {% endblock %}

@@ -472,11 +472,17 @@ class SeriesCreateView(PermissionRequiredMixin, CreateView):
 
 
 class SeriesUpdateView(PermissionRequiredMixin, UpdateView):
-    pass
+    template_name = 'form.html'
+    form_class = SeriesModelForm
+    model = Series
+    success_url = reverse_lazy('series')
+    permission_required = 'viewer.change_series'
 
 
 class SeriesDeleteView(PermissionRequiredMixin, DeleteView):
-    pass
+    template_name = 'confirm_delete.html'
+    model = Series
+    success_url = reverse_lazy('series')
 
 
 class EpisodeDetailView(DetailView):
