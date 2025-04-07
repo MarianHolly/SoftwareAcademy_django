@@ -22,7 +22,7 @@ from viewer.models import Creator, Movie, Genre, Country, Review, Image, Series,
 # Create your views here.
 def home(request):
     context = {
-        'latest_movies': Movie.objects.all().order_by('-created')[:3],
+        'latest_movies': Movie.objects.exclude(id__in=SeriesEpisode.objects.values_list('id', flat=True)).order_by('-created')[:3],
         'latest_creators': Creator.objects.all().order_by('-created')[:3],
         'latest_reviews': Review.objects.all().order_by('-created')[:3],
         'latest_episodes': SeriesEpisode.objects.all().order_by('-created')[:3],
