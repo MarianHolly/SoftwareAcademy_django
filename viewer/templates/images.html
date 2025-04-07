@@ -5,17 +5,31 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Obrázky</h1>
-    {% if perms.viewer.add_image %}
-        <a href="{% url 'image_create' %}" class="btn btn-primary">Pridať</a>
-    {% endif %}
-    <ul>
-        {% for image in images %}
-            <li>
-                <a href="{% url 'image' image.id %}">
-                    <img src="{{ image.image.url }}" alt="{{ image.description }}" width="100px">
-                </a>
-            </li>
-        {% endfor %}
-    </ul>
+    <div class="container mt-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h1 class="mb-0">Galéria obrázkov</h1>
+            {% if perms.viewer.add_image %}
+                <a href="{% url 'image_create' %}" class="btn btn-primary">Pridať nový obrázok</a>
+            {% endif %}
+        </div>
+
+        {% if images %}
+            <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 g-3">
+                {% for image in images %}
+                    <div class="col">
+                        <div class="card h-100 shadow-sm">
+                            <a href="{% url 'image' image.id %}">
+                                <img src="{{ image.image.url }}" alt="{{ image.description }}" class="card-img-top img-fluid" style="object-fit: cover; height: 280px;">
+                            </a>
+                            <div class="card-body">
+                                <p class="card-text text-muted small">{{ image.description|default:"(bez popisu)" }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="text-muted">Zatiaľ neboli pridané žiadne obrázky.</p>
+        {% endif %}
+    </div>
 {% endblock %}
