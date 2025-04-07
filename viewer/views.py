@@ -3,6 +3,7 @@ import os
 import requests
 
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.core.paginator import Paginator
 from django.db.models import Avg
 from django.db.models.expressions import result
 from django.shortcuts import render, redirect
@@ -24,6 +25,7 @@ def home(request):
         'latest_movies': Movie.objects.all().order_by('-created')[:3],
         'latest_creators': Creator.objects.all().order_by('-created')[:3],
         'latest_reviews': Review.objects.all().order_by('-created')[:3],
+        'latest_episodes': SeriesEpisode.objects.all().order_by('-created')[:3],
     }
     return render(request, 'home.html', context)
 
@@ -51,7 +53,7 @@ class MoviesListView(ListView):
     # Pozor, do template sa posielajú data pod názvom 'object_list'
     # Preto to premenujema na 'movies'
     context_object_name = 'movies'
-    paginate_by = 20
+    paginate_by = 6
 
     def get_queryset(self):
         movies_ = Movie.objects.exclude(id__in=SeriesEpisode.objects.values_list('id', flat=True))
@@ -159,7 +161,28 @@ class CreatorListView(ListView):
     template_name = 'creators.html'
     model = Creator
     context_object_name = 'creators'
-    paginate_by = 5
+    paginate_by = 4
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # context['directors'] = Creator.objects.filter(directing__isnull=False).distinct()
+        # context['actors'] = Creator.objects.filter(acting__isnull=False).distinct()
+
+        actors_list = Creator.objects.filter(acting__isnull=False).distinct()
+        directors_list = Creator.objects.filter(directing__isnull=False).distinct()
+
+        # Paginátory
+        actors_paginator = Paginator(actors_list, 5)
+        directors_paginator = Paginator(directors_list, 3)
+
+        # Aktuálne stránky z URL parametrov
+        actors_page_number = self.request.GET.get("actors_page")
+        directors_page_number = self.request.GET.get("directors_page")
+
+        context['actors_page'] = actors_paginator.get_page(actors_page_number)
+        context['directors_page'] = directors_paginator.get_page(directors_page_number)
+
+        return context
 
 
 class CreatorDetailsView(DetailView):
@@ -439,8 +462,6 @@ class SeriesDetailView(DetailView):
     template_name = 'series_detail.html'
     model = Series
     context_object_name = 'series'
-
-
 
 
 class EpisodeDetailView(DetailView):

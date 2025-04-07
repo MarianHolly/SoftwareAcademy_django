@@ -63,6 +63,27 @@
         </section>
 
         <section class="mb-5">
+            <h2 class="mb-4 border-bottom pb-2">Naposledy pridané epizódy</h2>
+            <div class="row">
+                {% if latest_episodes %}
+                    {% for episode in latest_episodes %}
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ episode.title }}</h5>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="col">
+                        <p>Nenašli sme nové epizódy.</p>
+                    </div>
+                {% endif %}
+            </div>
+        </section>
+
+        <section class="mb-5">
             <h2 class="mb-4 border-bottom pb-2">Naposledy pridané recenzie.</h2>
             <div class="row">
                 {% if latest_reviews %}

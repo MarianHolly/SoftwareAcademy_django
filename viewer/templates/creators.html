@@ -9,19 +9,66 @@
     {% if perms.viewer.add_creator %}
         <a href="{% url 'creator_create' %}" class="btn btn-primary">Pridať</a>
     {% endif %}
-    <ul>
-        {% for creator in creators %}
-            <li>
-                <a href="{% url 'creator' creator.id %}">{{ creator }}</a>
-                {% if perms.viewer.change_creator %}
-                    <a href="{% url 'creator_update' creator.id %}">✏️</a>
-                {% endif %}
-                {% if perms.viewer.delete_creator %}
-                    <a href="{% url 'creator_delete' creator.id %}">❌</a>
-                {% endif %}
-            </li>
-        {% endfor %}
-    </ul>
 
-    {% include 'paginator.html' %}
+    <hr>
+
+    <div>
+        <h2>Directors</h2>
+        <ul>
+            {% for director in directors_page %}
+                <li>
+                    <a href="{% url 'creator' director.id %}">{{ director }}</a>
+                    {% if perms.viewer.change_creator %}
+                        <a href="{% url 'creator_update' director.id %}">✏️</a>
+                    {% endif %}
+                    {% if perms.viewer.delete_creator %}
+                        <a href="{% url 'creator_delete' director.id %}">❌</a>
+                    {% endif %}
+                </li>
+            {% empty %}
+                <li>Žiaden režiser nie je nájdený.</li>
+            {% endfor %}
+        </ul>
+        <div class="pagination">
+            {% if directors_page.has_previous %}
+                <a href="?directors_page={{ directors_page.previous_page_number }}&actors_page={{ actors_page.number }}" class="mr-1">&lt;</a>
+            {% endif %}
+
+            <span>{{ directors_page.number }} z {{ directors_page.paginator.num_pages }}</span>
+
+            {% if directors_page.has_next %}
+                <a href="?directors_page={{ directors_page.next_page_number }}&actors_page={{ actors_page.number }}" class="ml-1">&gt;</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <div>
+        <h2>Actors</h2>
+        <ul>
+            {% for actor in actors_page %}
+                <li>
+                    <a href="{% url 'creator' actor.id %}">{{ actor }}</a>
+                    {% if perms.viewer.change_creator %}
+                        <a href="{% url 'creator_update' actor.id %}">✏️</a>
+                    {% endif %}
+                    {% if perms.viewer.delete_creator %}
+                        <a href="{% url 'creator_delete' actor.id %}">❌</a>
+                    {% endif %}
+                </li>
+            {% empty %}
+                <li>Žiaden herec nie je nájdený.</li>
+            {% endfor %}
+        </ul>
+        <div class="pagination">
+            {% if actors_page.has_previous %}
+                <a href="?actors_page={{ actors_page.previous_page_number }}&directors_page={{ directors_page.number }}" class="mr-1">&lt;</a>
+            {% endif %}
+
+            <span>{{ actors_page.number }} z {{ actors_page.paginator.num_pages }}</span>
+
+            {% if actors_page.has_next %}
+                <a href="?actors_page={{ actors_page.next_page_number }}&directors_page={{ directors_page.number }}" class="ml-1">&gt;</a>
+            {% endif %}
+        </div>
+    </div>
 {% endblock %}
